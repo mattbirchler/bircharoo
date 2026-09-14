@@ -1,0 +1,752 @@
+/* Bircharoo
+   A macOS-native Obsidian theme built for writing.
+   https://github.com/mattbirchler/bircharoo
+
+   Structure
+   1. Type scale and spacing (body)
+   2. Palette: light
+   3. Palette: dark
+   4. Shared component variables
+   5. Writing surface
+   6. Chrome: sidebars, tabs, header, ribbon, status bar
+   7. Floating glass: menus, palette, suggestions, modals, popovers, tooltips
+   8. Controls: icons, buttons, inputs, toggles, checkboxes
+   9. Mobile
+*/
+
+/* ---------------------------------------------------------------------------
+   1. Type scale and spacing
+   Sizes are relative to the body font size the user picks in Appearance.
+   The title is only a touch larger than body; headings step down from there.
+   --------------------------------------------------------------------------- */
+body {
+  --line-height-normal: 1.65;
+  --line-height-tight: 1.3;
+  --p-spacing: 1.1em;
+  --heading-spacing: calc(var(--p-spacing) * 2.2);
+
+  --inline-title-size: 1.35em;
+  --inline-title-weight: 600;
+  --inline-title-line-height: 1.25;
+  --inline-title-margin-bottom: 0.9em;
+  --inline-title-color: var(--text-normal);
+
+  --h1-size: 1.25em;
+  --h2-size: 1.15em;
+  --h3-size: 1.08em;
+  --h4-size: 1em;
+  --h5-size: 1em;
+  --h6-size: 0.95em;
+
+  --h1-weight: 600;
+  --h2-weight: 600;
+  --h3-weight: 600;
+  --h4-weight: 600;
+  --h5-weight: 600;
+  --h6-weight: 600;
+
+  --h1-line-height: 1.25;
+  --h2-line-height: 1.3;
+  --h3-line-height: 1.35;
+  --h4-line-height: 1.4;
+  --h5-line-height: var(--line-height-normal);
+  --h6-line-height: var(--line-height-normal);
+
+  --h1-color: var(--text-normal);
+  --h2-color: var(--text-normal);
+  --h3-color: var(--text-normal);
+  --h4-color: var(--text-normal);
+  --h5-color: var(--text-muted);
+  --h6-color: var(--text-muted);
+
+  --bold-modifier: 200;
+  --file-line-width: 42rem;
+  --file-margins-y: var(--size-4-12);
+}
+
+/* ---------------------------------------------------------------------------
+   2. Palette: light
+   White page on macOS system gray. Text is Apple's near-black, not pure black.
+   --------------------------------------------------------------------------- */
+.theme-light {
+  --color-base-00: #ffffff;
+  --color-base-05: #fbfbfc;
+  --color-base-10: #f5f5f7;
+  --color-base-20: #efeff1;
+  --color-base-25: #e9e9ec;
+  --color-base-30: #dfdfe3;
+  --color-base-35: #d1d1d6;
+  --color-base-40: #b8b8bd;
+  --color-base-50: #9d9da3;
+  --color-base-60: #6e6e73;
+  --color-base-70: #48484a;
+  --color-base-100: #1d1d1f;
+
+  --color-red: #d70015;
+  --color-orange: #c93400;
+  --color-yellow: #b25000;
+  --color-green: #248a3d;
+  --color-cyan: #0071a4;
+  --color-blue: #0066cc;
+  --color-purple: #8944ab;
+  --color-pink: #d30f45;
+
+  --background-primary: var(--color-base-00);
+  --background-primary-alt: var(--color-base-05);
+  --background-secondary: var(--color-base-10);
+  --background-secondary-alt: var(--color-base-20);
+  --background-modifier-hover: rgb(0 0 0 / 5%);
+  --background-modifier-active-hover: rgb(0 0 0 / 8%);
+  --background-modifier-border: rgb(0 0 0 / 8%);
+  --background-modifier-border-hover: rgb(0 0 0 / 14%);
+  --background-modifier-border-focus: rgb(0 0 0 / 20%);
+  --background-modifier-form-field: var(--color-base-00);
+  --background-modifier-box-shadow: rgb(0 0 0 / 12%);
+  --background-modifier-cover: rgb(30 30 32 / 18%);
+  --background-modifier-message: rgb(40 40 44 / 96%);
+
+  --text-normal: var(--color-base-100);
+  --text-muted: var(--color-base-60);
+  --text-faint: var(--color-base-50);
+  --text-on-accent: #ffffff;
+  --text-selection: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 22%);
+  --text-highlight-bg: rgb(255 214 10 / 40%);
+
+  --bircharoo-glass: rgb(255 255 255 / 72%);
+  --bircharoo-glass-strong: rgb(250 250 252 / 86%);
+  --bircharoo-glass-edge: rgb(255 255 255 / 60%);
+  --bircharoo-raised: rgb(255 255 255 / 100%);
+
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 4%), 0 2px 8px rgb(0 0 0 / 5%);
+  --shadow-s: 0 1px 2px rgb(0 0 0 / 5%), 0 4px 12px rgb(0 0 0 / 7%), 0 12px 32px rgb(0 0 0 / 8%);
+  --shadow-l: 0 2px 6px rgb(0 0 0 / 6%), 0 12px 32px rgb(0 0 0 / 12%), 0 32px 80px rgb(0 0 0 / 16%);
+
+  --input-shadow: inset 0 0 0 1px rgb(0 0 0 / 10%), 0 1px 1px rgb(0 0 0 / 4%);
+  --input-shadow-hover: inset 0 0 0 1px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 6%);
+}
+
+/* ---------------------------------------------------------------------------
+   3. Palette: dark
+   Warm-neutral grays, never pure black. Sidebars sit a step behind the page.
+   --------------------------------------------------------------------------- */
+.theme-dark {
+  --color-base-00: #1e1e20;
+  --color-base-05: #212123;
+  --color-base-10: #19191b;
+  --color-base-20: #242427;
+  --color-base-25: #2a2a2e;
+  --color-base-30: #323236;
+  --color-base-35: #3a3a3f;
+  --color-base-40: #4a4a50;
+  --color-base-50: #636369;
+  --color-base-60: #98989d;
+  --color-base-70: #c7c7cc;
+  --color-base-100: #ececf0;
+
+  --color-red: #ff6b6b;
+  --color-orange: #ffa25d;
+  --color-yellow: #ffd66b;
+  --color-green: #5fd487;
+  --color-cyan: #5ed6f2;
+  --color-blue: #5aa9ff;
+  --color-purple: #c48cff;
+  --color-pink: #ff8ac1;
+
+  --background-primary: var(--color-base-00);
+  --background-primary-alt: var(--color-base-05);
+  --background-secondary: var(--color-base-10);
+  --background-secondary-alt: var(--color-base-20);
+  --background-modifier-hover: rgb(255 255 255 / 6%);
+  --background-modifier-active-hover: rgb(255 255 255 / 9%);
+  --background-modifier-border: rgb(255 255 255 / 8%);
+  --background-modifier-border-hover: rgb(255 255 255 / 14%);
+  --background-modifier-border-focus: rgb(255 255 255 / 22%);
+  --background-modifier-form-field: var(--color-base-25);
+  --background-modifier-box-shadow: rgb(0 0 0 / 40%);
+  --background-modifier-cover: rgb(0 0 0 / 45%);
+  --background-modifier-message: rgb(44 44 48 / 96%);
+
+  --interactive-normal: var(--color-base-25);
+  --interactive-hover: var(--color-base-30);
+
+  --text-normal: var(--color-base-100);
+  --text-muted: var(--color-base-60);
+  --text-faint: var(--color-base-50);
+  --text-on-accent: #ffffff;
+  --text-selection: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 30%);
+  --text-highlight-bg: rgb(255 214 10 / 22%);
+
+  --bircharoo-glass: rgb(36 36 40 / 68%);
+  --bircharoo-glass-strong: rgb(32 32 36 / 84%);
+  --bircharoo-glass-edge: rgb(255 255 255 / 10%);
+  --bircharoo-raised: rgb(255 255 255 / 5%);
+
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 20%), 0 2px 8px rgb(0 0 0 / 22%);
+  --shadow-s: 0 1px 2px rgb(0 0 0 / 25%), 0 4px 12px rgb(0 0 0 / 30%), 0 12px 32px rgb(0 0 0 / 35%);
+  --shadow-l: 0 2px 6px rgb(0 0 0 / 30%), 0 12px 32px rgb(0 0 0 / 45%), 0 32px 80px rgb(0 0 0 / 50%);
+
+  --input-shadow: inset 0 0.5px 0 rgb(255 255 255 / 10%), 0 1px 2px rgb(0 0 0 / 30%);
+  --input-shadow-hover: inset 0 0.5px 0 rgb(255 255 255 / 16%), 0 1px 3px rgb(0 0 0 / 40%);
+}
+
+/* ---------------------------------------------------------------------------
+   4. Shared component variables
+   --------------------------------------------------------------------------- */
+body {
+  /* Radii: macOS-ish, a little rounder than stock */
+  --radius-s: 5px;
+  --radius-m: 8px;
+  --radius-l: 12px;
+  --radius-xl: 20px;
+  --input-radius: 7px;
+  --button-radius: 7px;
+  --clickable-icon-radius: 7px;
+  --nav-item-radius: 6px;
+  --callout-radius: 10px;
+  --code-radius: 8px;
+  --checkbox-radius: 5px;
+  --tag-radius: 2em;
+  --modal-radius: 14px;
+  --menu-radius: 10px;
+  --embed-radius: 10px;
+
+  /* Motion */
+  --anim-duration-fast: 120ms;
+  --anim-duration-moderate: 220ms;
+  --anim-motion-smooth: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Links and tags carry the accent. Headings stay neutral. */
+  --link-color: var(--text-accent);
+  --link-color-hover: var(--text-accent-hover);
+  --link-decoration: underline;
+  --link-decoration-thickness: 1px;
+  --link-external-color: var(--text-accent);
+  --link-external-decoration: underline;
+  --link-unresolved-opacity: 0.6;
+  --tag-color: var(--text-accent);
+  --tag-color-hover: var(--text-on-accent);
+  --tag-background: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 12%);
+  --tag-background-hover: var(--interactive-accent);
+  --tag-padding-x: 0.6em;
+  --tag-padding-y: 0.2em;
+  --tag-weight: 500;
+
+  /* Glass on every floating surface */
+  --menu-background: var(--bircharoo-glass);
+  --menu-backdrop-filter: var(--bircharoo-blur);
+  --menu-border-color: var(--bircharoo-glass-edge);
+  --menu-shadow: var(--shadow-s);
+  --prompt-background: var(--bircharoo-glass-strong);
+  --prompt-backdrop-filter: var(--bircharoo-blur);
+  --prompt-border-color: var(--bircharoo-glass-edge);
+  --suggestion-background: var(--bircharoo-glass);
+  --suggestion-backdrop-filter: var(--bircharoo-blur);
+  --modal-background: var(--bircharoo-glass-strong);
+  --modal-border-color: var(--bircharoo-glass-edge);
+  --modal-shadow: var(--shadow-l);
+  --bircharoo-blur: blur(28px) saturate(180%);
+
+  /* Chrome */
+  --tab-container-background: var(--background-secondary);
+  --tab-background-active: var(--background-primary);
+  --tab-text-color-focused-active-current: var(--text-normal);
+  --tab-radius-active: var(--radius-m);
+  --titlebar-background: var(--background-secondary);
+  --titlebar-background-focused: var(--background-secondary);
+  --ribbon-background: var(--background-secondary);
+  --status-bar-background: var(--bircharoo-glass);
+  --status-bar-border-width: 0;
+  --status-bar-radius: var(--radius-m);
+  --divider-color: var(--background-modifier-border);
+  --divider-color-hover: var(--interactive-accent);
+  --divider-width-hover: 2px;
+  --sidebar-markdown-font-size: calc(var(--font-text-size) * 0.9);
+
+  /* Icons */
+  --icon-color: var(--text-muted);
+  --icon-color-hover: var(--text-normal);
+  --icon-color-active: var(--text-accent);
+  --icon-opacity: 0.9;
+  --icon-m-stroke-width: 1.6px;
+  --icon-l-stroke-width: 1.6px;
+
+  /* Blockquote, embeds, hr */
+  --blockquote-border-thickness: 2px;
+  --blockquote-border-color: var(--background-modifier-border-hover);
+  --blockquote-color: var(--text-muted);
+  --hr-thickness: 1px;
+  --embed-border-start: 2px solid var(--background-modifier-border-hover);
+  --embed-padding: 0 0 0 var(--size-4-4);
+
+  /* Code */
+  --code-background: var(--background-primary-alt);
+  --code-border-width: 1px;
+  --code-border-color: var(--background-modifier-border);
+
+  /* Metadata (properties) */
+  --metadata-label-text-color: var(--text-muted);
+  --metadata-property-radius: 6px;
+  --metadata-property-background-active: var(--background-modifier-hover);
+
+  /* Checkboxes */
+  --checkbox-border-color: var(--text-faint);
+  --checkbox-border-color-hover: var(--text-muted);
+}
+
+/* ---------------------------------------------------------------------------
+   5. Writing surface
+   --------------------------------------------------------------------------- */
+
+/* The inline title sits close to the body, separated by weight not distance */
+.inline-title {
+  letter-spacing: -0.01em;
+}
+
+/* Editing view: match the reading-view heading treatment */
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header {
+  padding-top: 0;
+}
+
+/* H5 and H6 read as labels */
+.markdown-rendered h6,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header-6 {
+  letter-spacing: 0.02em;
+}
+
+/* Heading formatting marks (the # in editing view) fade back */
+body {
+  --heading-formatting: var(--text-faint);
+}
+
+/* Links: underline sits low and lightens on hover for a tactile response */
+.markdown-rendered a,
+.markdown-source-view.mod-cm6 .cm-link,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link,
+.markdown-source-view.mod-cm6 .cm-url {
+  text-underline-offset: 0.16em;
+  text-decoration-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 40%);
+  transition: text-decoration-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.markdown-rendered a:hover,
+.markdown-source-view.mod-cm6 .cm-link:hover,
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link:hover,
+.markdown-source-view.mod-cm6 .cm-url:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Tags: pill with a soft tint, fills on hover */
+a.tag,
+.cm-hashtag {
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.cm-hashtag:hover {
+  color: var(--tag-color-hover);
+  background-color: var(--tag-background-hover);
+}
+
+/* Callouts: soft, rounded, no heavy borders */
+.callout {
+  box-shadow: inset 0 0 0 1px rgb(var(--callout-color) / 18%);
+  background-color: rgb(var(--callout-color) / 6%);
+}
+
+/* Code blocks: quiet border instead of a loud fill */
+.markdown-rendered pre,
+.markdown-source-view.mod-cm6 .HyperMD-codeblock {
+  box-shadow: none;
+}
+
+/* Horizontal rule: hairline */
+.markdown-rendered hr,
+.markdown-source-view.mod-cm6 .cm-line.hr hr {
+  border-top: var(--hr-thickness) solid var(--hr-color);
+}
+
+/* Selection in the editor */
+.markdown-source-view.mod-cm6 .cm-selectionBackground,
+.markdown-source-view.mod-cm6 .cm-content ::selection {
+  background-color: var(--text-selection);
+}
+
+/* ---------------------------------------------------------------------------
+   6. Chrome
+   --------------------------------------------------------------------------- */
+
+/* Sidebars: no hard border against the page, just the tone change */
+.workspace-split.mod-left-split,
+.workspace-split.mod-right-split {
+  --divider-color: transparent;
+}
+.workspace-split.mod-left-split .workspace-tabs,
+.workspace-split.mod-right-split .workspace-tabs {
+  border: none;
+}
+
+/* Tab bar: the active tab is a raised pill, the rest are quiet text */
+.workspace-tab-header-container {
+  border-bottom: none;
+}
+.workspace-tab-header {
+  transition: color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.workspace-tab-header-inner {
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              box-shadow var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.mod-root .workspace-tab-header.is-active .workspace-tab-header-inner {
+  box-shadow: var(--shadow-xs);
+}
+.mod-root .workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner {
+  background-color: var(--background-modifier-hover);
+}
+.workspace-tab-header-tab-list .clickable-icon,
+.workspace-tab-header-new-tab .clickable-icon {
+  opacity: 0.7;
+}
+
+/* Vertical divider between tab groups */
+.workspace-tab-header-container:after {
+  display: none;
+}
+
+/* View header: title fades in, actions appear on hover */
+.view-header {
+  border-bottom: none;
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.view-header-title {
+  font-weight: 500;
+  color: var(--text-muted);
+}
+.workspace-leaf.mod-active .view-header-title {
+  color: var(--text-normal);
+}
+
+/* File explorer and other trees */
+.tree-item-self {
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.tree-item-self.is-active,
+.nav-file-title.is-active,
+.nav-folder-title.is-active {
+  box-shadow: inset 0 0 0 1px var(--background-modifier-border);
+}
+
+/* Ribbon: icons only, no border */
+.side-dock-ribbon,
+.workspace-ribbon.mod-left {
+  border: none;
+}
+.workspace-ribbon.mod-left:before {
+  display: none;
+}
+
+/* Status bar: floating glass pill in the corner */
+.status-bar {
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+  box-shadow: var(--shadow-xs), 0 0 0 1px var(--bircharoo-glass-edge);
+  margin: 0 var(--size-4-2) var(--size-4-2) 0;
+  border-radius: var(--radius-m);
+  padding: var(--size-2-1) var(--size-4-2);
+}
+.status-bar-item {
+  transition: color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.status-bar-item.mod-clickable:hover {
+  color: var(--text-normal);
+  background-color: transparent;
+}
+
+/* Scrollbars: thin, only when you need them */
+body {
+  --scrollbar-width: 10px;
+  --scrollbar-height: 10px;
+  --scrollbar-border-width: 3px;
+}
+
+/* ---------------------------------------------------------------------------
+   7. Floating glass surfaces
+   --------------------------------------------------------------------------- */
+
+/* Menus (right-click, dropdown) */
+.menu {
+  -webkit-backdrop-filter: var(--menu-backdrop-filter);
+  box-shadow: var(--menu-shadow), 0 0 0 0.5px rgb(0 0 0 / 10%);
+  padding: var(--size-2-2);
+}
+.menu-item {
+  border-radius: 6px;
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.menu-item.selected:not(.is-disabled),
+.menu-item:not(.is-disabled):hover {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+.menu-item.selected:not(.is-disabled) .menu-item-icon,
+.menu-item:not(.is-disabled):hover .menu-item-icon {
+  color: var(--text-on-accent);
+}
+.menu-separator {
+  margin: var(--size-2-2) var(--size-2-1);
+}
+
+/* Command palette, quick switcher, and other prompts */
+.prompt {
+  -webkit-backdrop-filter: var(--prompt-backdrop-filter);
+  box-shadow: var(--shadow-l), 0 0 0 0.5px rgb(0 0 0 / 12%);
+  border-radius: var(--radius-l);
+}
+.prompt-input {
+  background: transparent;
+  box-shadow: none;
+  border-bottom: 1px solid var(--background-modifier-border);
+  border-radius: 0;
+}
+.prompt-input:focus,
+.prompt-input:hover {
+  box-shadow: none;
+}
+.prompt .suggestion-item {
+  border-radius: 6px;
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.prompt .suggestion-item.is-selected {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+.prompt .suggestion-item.is-selected .suggestion-note,
+.prompt .suggestion-item.is-selected .suggestion-aux,
+.prompt .suggestion-item.is-selected .suggestion-flair,
+.prompt .suggestion-item.is-selected .suggestion-highlight,
+.prompt .suggestion-item.is-selected .suggestion-hotkey {
+  color: var(--text-on-accent);
+  opacity: 0.85;
+}
+.prompt .suggestion-item.is-selected .suggestion-hotkey {
+  background-color: rgb(255 255 255 / 18%);
+}
+.prompt-instructions {
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+/* Inline suggestions (links, tags) inside the editor */
+.suggestion-container {
+  -webkit-backdrop-filter: var(--suggestion-backdrop-filter);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-s), 0 0 0 0.5px rgb(0 0 0 / 10%);
+  border: 1px solid var(--bircharoo-glass-edge);
+  padding: var(--size-2-2);
+}
+.suggestion-container .suggestion-item {
+  border-radius: 6px;
+}
+.suggestion-container .suggestion-item.is-selected {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+.suggestion-container .suggestion-item.is-selected .suggestion-note,
+.suggestion-container .suggestion-item.is-selected .suggestion-aux {
+  color: var(--text-on-accent);
+  opacity: 0.85;
+}
+
+/* Modals (settings, dialogs) */
+.modal {
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+  box-shadow: var(--modal-shadow), 0 0 0 0.5px rgb(0 0 0 / 12%);
+}
+.modal-bg {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.modal.mod-settings .vertical-tab-header {
+  background-color: transparent;
+  border-right: 1px solid var(--background-modifier-border);
+}
+.modal.mod-settings .vertical-tab-nav-item {
+  border-radius: 6px;
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.modal.mod-settings .vertical-tab-nav-item.is-active {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+/* Hover page previews */
+.popover.hover-popover {
+  background-color: var(--bircharoo-glass-strong);
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+  border: 1px solid var(--bircharoo-glass-edge);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-l), 0 0 0 0.5px rgb(0 0 0 / 12%);
+}
+.popover.hover-popover .markdown-embed {
+  background-color: transparent;
+}
+
+/* Tooltips */
+.tooltip {
+  border-radius: 7px;
+  padding: var(--size-2-2) var(--size-4-2);
+  box-shadow: var(--shadow-s), 0 0 0 0.5px rgb(255 255 255 / 12%);
+}
+
+/* Notices */
+.notice {
+  background-color: var(--bircharoo-glass-strong);
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+  border: 1px solid var(--bircharoo-glass-edge);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-s), 0 0 0 0.5px rgb(0 0 0 / 10%);
+  color: var(--text-normal);
+}
+
+/* ---------------------------------------------------------------------------
+   8. Controls
+   --------------------------------------------------------------------------- */
+
+/* Icon buttons: respond to hover, give under press */
+.clickable-icon {
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth),
+              transform var(--anim-duration-fast) var(--anim-motion-smooth),
+              opacity var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+@media (hover: hover) {
+  .clickable-icon:hover {
+    background-color: var(--background-modifier-hover);
+    color: var(--icon-color-hover);
+  }
+}
+.clickable-icon:active {
+  transform: scale(0.92);
+  background-color: var(--background-modifier-active-hover);
+}
+
+/* Buttons: macOS style. Subtle top light, hairline edge, presses down. */
+button:not(.clickable-icon):not(.mod-cta):not(.mod-warning) {
+  background: linear-gradient(var(--bircharoo-raised), transparent) var(--interactive-normal);
+  box-shadow: var(--input-shadow);
+  transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth),
+              transform var(--anim-duration-fast) var(--anim-motion-smooth),
+              background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+button:not(.clickable-icon):not(.mod-cta):not(.mod-warning):hover {
+  background-color: var(--interactive-hover);
+  box-shadow: var(--input-shadow-hover);
+}
+button:not(.clickable-icon):active {
+  transform: translateY(0.5px) scale(0.985);
+}
+button.mod-cta {
+  background: linear-gradient(rgb(255 255 255 / 18%), transparent) var(--interactive-accent);
+  box-shadow: inset 0 0.5px 0 rgb(255 255 255 / 30%), 0 1px 2px rgb(0 0 0 / 20%);
+  transition: filter var(--anim-duration-fast) var(--anim-motion-smooth),
+              transform var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+button.mod-cta:hover {
+  background-color: var(--interactive-accent);
+  filter: brightness(1.08);
+}
+
+/* Text inputs */
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+textarea {
+  transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+input[type="text"]:focus,
+input[type="search"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  box-shadow: var(--input-shadow), 0 0 0 3px hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 30%);
+}
+
+/* Toggles: system-style, thumb eases across */
+.checkbox-container {
+  transition: background-color var(--anim-duration-moderate) var(--anim-motion-smooth);
+}
+.checkbox-container:after {
+  transition: transform var(--anim-duration-moderate) var(--anim-motion-smooth),
+              box-shadow var(--anim-duration-fast) var(--anim-motion-smooth);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 25%), 0 0 0 0.5px rgb(0 0 0 / 10%);
+}
+
+/* Task checkboxes: springy check */
+input[type="checkbox"] {
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              border-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              transform var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+input[type="checkbox"]:active {
+  transform: scale(0.9);
+}
+
+/* Dropdowns */
+.dropdown {
+  box-shadow: var(--input-shadow);
+  transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.dropdown:hover {
+  box-shadow: var(--input-shadow-hover);
+}
+
+/* Focus rings everywhere use the accent */
+body {
+  --background-modifier-border-focus: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 60%);
+}
+
+/* ---------------------------------------------------------------------------
+   9. Mobile
+   --------------------------------------------------------------------------- */
+.is-mobile {
+  --file-margins-y: var(--size-4-6);
+  --inline-title-size: 1.3em;
+  --mobile-sidebar-background: var(--bircharoo-glass-strong);
+  --modal-background: var(--bircharoo-glass-strong);
+  --prompt-background: var(--bircharoo-glass-strong);
+  --menu-background: var(--bircharoo-glass-strong);
+  --status-bar-background: transparent;
+  --bircharoo-blur: blur(24px) saturate(160%);
+}
+.is-mobile .workspace-drawer {
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+}
+.is-mobile .modal {
+  box-shadow: var(--shadow-l);
+}
+.is-phone .modal,
+.is-phone .prompt {
+  border-radius: var(--radius-l) var(--radius-l) 0 0;
+}
+/* Touch targets do not need hover transforms */
+.is-mobile .clickable-icon:active {
+  transform: none;
+  background-color: var(--background-modifier-active-hover);
+}
+/* Mobile navigation bar */
+.is-mobile .mobile-navbar {
+  background-color: var(--bircharoo-glass-strong);
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+  border-top: 1px solid var(--bircharoo-glass-edge);
+}
+.is-mobile .mobile-toolbar {
+  background-color: var(--bircharoo-glass-strong);
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+}
