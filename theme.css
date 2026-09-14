@@ -108,7 +108,6 @@ body {
   --text-normal: var(--color-base-100);
   --text-muted: var(--color-base-60);
   --text-faint: var(--color-base-50);
-  --text-on-accent: #ffffff;
   --text-selection: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 22%);
   --text-highlight-bg: rgb(255 214 10 / 40%);
 
@@ -172,7 +171,6 @@ body {
   --text-normal: var(--color-base-100);
   --text-muted: var(--color-base-60);
   --text-faint: var(--color-base-50);
-  --text-on-accent: #ffffff;
   --text-selection: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 30%);
   --text-highlight-bg: rgb(255 214 10 / 22%);
 
@@ -209,6 +207,15 @@ body {
   --modal-radius: 14px;
   --menu-radius: 10px;
   --embed-radius: 10px;
+
+  /* Everything clickable gets a pointer, like the web, not like AppKit */
+  --cursor: pointer;
+  --cursor-link: pointer;
+
+  /* Text and icons on an accent fill: white on a dark accent, black on a
+     light one. The clamp turns the accent lightness into 0% or 100%. */
+  --text-on-accent: hsl(0 0% clamp(0%, (72% - var(--accent-l)) * 1000, 100%));
+  --text-on-accent-inverted: hsl(0 0% clamp(0%, (var(--accent-l) - 72%) * 1000, 100%));
 
   /* Motion */
   --anim-duration-fast: 120ms;
@@ -530,6 +537,10 @@ body {
 .prompt .suggestion-item.is-selected .suggestion-hotkey {
   background-color: rgb(255 255 255 / 18%);
 }
+.prompt .suggestion-item.is-selected svg,
+.suggestion-container .suggestion-item.is-selected svg {
+  color: var(--text-on-accent);
+}
 .prompt-instructions {
   border-top: 1px solid var(--background-modifier-border);
 }
@@ -576,6 +587,13 @@ body {
 .modal.mod-settings .vertical-tab-nav-item.is-active {
   background-color: var(--interactive-accent);
   color: var(--text-on-accent);
+}
+.modal.mod-settings .vertical-tab-nav-item.is-active .vertical-tab-nav-item-icon,
+.modal.mod-settings .vertical-tab-nav-item.is-active svg {
+  color: var(--text-on-accent);
+}
+.modal.mod-settings .vertical-tab-nav-item:not(.is-active):hover {
+  background-color: var(--background-modifier-hover);
 }
 
 /* Hover page previews */
@@ -702,6 +720,33 @@ input[type="checkbox"]:active {
 }
 .dropdown:hover {
   box-shadow: var(--input-shadow-hover);
+}
+
+/* Pointer on every control, including ones that hardcode a cursor */
+button,
+select,
+.dropdown,
+.checkbox-container,
+input[type="checkbox"],
+input[type="range"],
+.tree-item-self,
+.workspace-tab-header,
+.workspace-tab-header-inner,
+.side-dock-ribbon-action,
+.status-bar-item.mod-clickable,
+.view-header-title-container .view-header-breadcrumb,
+.metadata-property-icon,
+.metadata-add-button,
+.multi-select-pill,
+.setting-item.mod-navigable,
+.callout.is-collapsible .callout-title,
+.collapse-icon,
+a.tag,
+.cm-hashtag,
+.external-link,
+.internal-link,
+.mod-cta {
+  cursor: pointer;
 }
 
 /* Focus rings everywhere use the accent */
