@@ -122,6 +122,11 @@ body {
 
   --input-shadow: inset 0 0 0 1px rgb(0 0 0 / 10%), 0 1px 1px rgb(0 0 0 / 4%);
   --input-shadow-hover: inset 0 0 0 1px rgb(0 0 0 / 16%), 0 1px 2px rgb(0 0 0 / 6%);
+
+  --bircharoo-button-bg: var(--color-base-00);
+  --bircharoo-button-bg-hover: var(--color-base-10);
+  --bircharoo-button-shadow: 0 0 0 1px rgb(0 0 0 / 9%), 0 1px 2px rgb(0 0 0 / 6%);
+  --bircharoo-button-shadow-hover: 0 0 0 1px rgb(0 0 0 / 14%), 0 1px 3px rgb(0 0 0 / 8%);
 }
 
 /* ---------------------------------------------------------------------------
@@ -185,6 +190,11 @@ body {
 
   --input-shadow: inset 0 0.5px 0 rgb(255 255 255 / 10%), 0 1px 2px rgb(0 0 0 / 30%);
   --input-shadow-hover: inset 0 0.5px 0 rgb(255 255 255 / 16%), 0 1px 3px rgb(0 0 0 / 40%);
+
+  --bircharoo-button-bg: var(--color-base-30);
+  --bircharoo-button-bg-hover: var(--color-base-35);
+  --bircharoo-button-shadow: 0 0 0 1px rgb(255 255 255 / 8%), 0 1px 2px rgb(0 0 0 / 30%);
+  --bircharoo-button-shadow-hover: 0 0 0 1px rgb(255 255 255 / 14%), 0 1px 3px rgb(0 0 0 / 40%);
 }
 
 /* ---------------------------------------------------------------------------
@@ -196,8 +206,9 @@ body {
   --radius-m: 8px;
   --radius-l: 12px;
   --radius-xl: 20px;
-  --input-radius: 7px;
-  --button-radius: 7px;
+  --input-radius: 6px;
+  --button-radius: 6px;
+  --input-height: 28px;
   --clickable-icon-radius: 7px;
   --nav-item-radius: 6px;
   --callout-radius: 10px;
@@ -649,30 +660,46 @@ body {
   background-color: var(--background-modifier-active-hover);
 }
 
-/* Buttons: macOS style. Subtle top light, hairline edge, presses down. */
+/* Buttons: flat, white, hairline edge, no gradient. Press nudges them down. */
 button:not(.clickable-icon):not(.mod-cta):not(.mod-warning) {
-  background: linear-gradient(var(--bircharoo-raised), transparent) var(--interactive-normal);
-  box-shadow: var(--input-shadow);
+  background-color: var(--bircharoo-button-bg);
+  box-shadow: var(--bircharoo-button-shadow);
+  font-weight: 500;
   transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth),
               transform var(--anim-duration-fast) var(--anim-motion-smooth),
               background-color var(--anim-duration-fast) var(--anim-motion-smooth);
 }
 button:not(.clickable-icon):not(.mod-cta):not(.mod-warning):hover {
-  background-color: var(--interactive-hover);
-  box-shadow: var(--input-shadow-hover);
+  background-color: var(--bircharoo-button-bg-hover);
+  box-shadow: var(--bircharoo-button-shadow-hover);
 }
 button:not(.clickable-icon):active {
   transform: translateY(0.5px) scale(0.985);
 }
 button.mod-cta {
-  background: linear-gradient(rgb(255 255 255 / 18%), transparent) var(--interactive-accent);
-  box-shadow: inset 0 0.5px 0 rgb(255 255 255 / 30%), 0 1px 2px rgb(0 0 0 / 20%);
+  background-color: var(--interactive-accent);
+  box-shadow: 0 0 0 1px hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) - 8%) / 60%), 0 1px 2px rgb(0 0 0 / 15%);
+  font-weight: 500;
   transition: filter var(--anim-duration-fast) var(--anim-motion-smooth),
               transform var(--anim-duration-fast) var(--anim-motion-smooth);
 }
 button.mod-cta:hover {
   background-color: var(--interactive-accent);
-  filter: brightness(1.08);
+  filter: brightness(1.06);
+}
+button.mod-warning {
+  background-color: var(--bircharoo-button-bg);
+  box-shadow: var(--bircharoo-button-shadow);
+  color: var(--text-error);
+  font-weight: 500;
+}
+button.mod-warning:hover {
+  background-color: var(--bircharoo-button-bg-hover);
+  box-shadow: var(--bircharoo-button-shadow-hover);
+}
+button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 /* Text inputs */
@@ -713,13 +740,17 @@ input[type="checkbox"]:active {
   transform: scale(0.9);
 }
 
-/* Dropdowns */
+/* Dropdowns share the button surface */
 .dropdown {
-  box-shadow: var(--input-shadow);
-  transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth);
+  background-color: var(--bircharoo-button-bg);
+  box-shadow: var(--bircharoo-button-shadow);
+  font-weight: 500;
+  transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth),
+              background-color var(--anim-duration-fast) var(--anim-motion-smooth);
 }
 .dropdown:hover {
-  box-shadow: var(--input-shadow-hover);
+  background-color: var(--bircharoo-button-bg-hover);
+  box-shadow: var(--bircharoo-button-shadow-hover);
 }
 
 /* Pointer on every control, including ones that hardcode a cursor */
