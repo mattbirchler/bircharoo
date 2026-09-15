@@ -21,6 +21,7 @@ os.makedirs(VENDOR, exist_ok=True)
 
 rules = []
 missing = []
+by_glyph = {}
 for lucide, phos in sorted(mapping.items()):
     vendored = os.path.join(VENDOR, phos + ".svg")
     if not os.path.exists(vendored):
@@ -31,33 +32,32 @@ for lucide, phos in sorted(mapping.items()):
             continue
     svg = open(vendored).read()
     svg = re.sub(r"<!--.*?-->", "", svg, flags=re.S)
-    svg = svg.replace('fill="currentColor"', 'fill="#000"')
+    # Masks only read alpha, and SVG paths default to an opaque black fill,
+    # so the fill attribute can go. Keep the escaping minimal: only the
+    # characters that would break a data URI inside url("...").
+    svg = svg.replace(' fill="currentColor"', "")
     svg = re.sub(r"\s+", " ", svg).strip()
-    uri = "data:image/svg+xml," + urllib.parse.quote(svg, safe="/:=,' ").replace(" ", "%20")
-    rules.append(
-        f'svg.svg-icon.lucide-{lucide} {{ -webkit-mask-image: url("{uri}"); mask-image: url("{uri}"); }}'
-    )
+    svg = svg.replace('"', "'").replace("<", "%3C").replace(">", "%3E").replace("#", "%23")
+    uri = "data:image/svg+xml," + svg
+    by_glyph.setdefault(uri, []).append(lucide)
+
+# One rule per unique glyph; several Lucide names can share it. Unprefixed
+# mask-image is enough: Obsidian 1.13 ships Chromium 120+ and iOS 15.4+.
+for uri, names in by_glyph.items():
+    sel = ",".join(f"svg.svg-icon.lucide-{n}" for n in names)
+    kids = ",".join(f"svg.svg-icon.lucide-{n}>*" for n in names)
+    rules.append(f'{sel}{{background-color:currentColor;mask-image:url("{uri}")}}{kids}{{display:none}}')
 
 block = "\n".join([
     START,
     "/* Each Obsidian icon keeps its <svg> box; the Lucide paths are hidden and a",
     "   Phosphor glyph is masked over it in the current color. */",
     "svg.svg-icon[class*=\"lucide-\"] {",
-    "  -webkit-mask-size: contain;",
     "  mask-size: contain;",
-    "  -webkit-mask-position: center;",
     "  mask-position: center;",
-    "  -webkit-mask-repeat: no-repeat;",
     "  mask-repeat: no-repeat;",
     "}",
     *rules,
-    "/* Hide the Lucide paths only for icons that have a Phosphor replacement */",
-    ",\n".join(f"svg.svg-icon.lucide-{l} > *" for l in sorted(mapping) if (l, mapping[l]) not in missing) + " {",
-    "  display: none;",
-    "}",
-    ",\n".join(f"svg.svg-icon.lucide-{l}" for l in sorted(mapping) if (l, mapping[l]) not in missing) + " {",
-    "  background-color: currentColor;",
-    "}",
     END,
 ])
 
