@@ -24,4 +24,11 @@ Obsidian reloads `theme.css` when the file changes, so edits show up live.
 ## Files
 
 - `manifest.json`: theme metadata Obsidian reads.
-- `theme.css`: the whole theme. Variables first, then component rules, then mobile.
+- `theme.css`: the whole theme. Variables first, then component rules, then mobile,
+  then a generated block that swaps Obsidian's Lucide icons for Phosphor.
+- `scripts/icons.json` and `scripts/build-icons.py`: the icon mapping and the
+  generator. Phosphor glyphs used are vendored in `assets/phosphor/`.
+
+## Credits
+
+Icons are [Phosphor Icons](https://phosphoricons.com), MIT licensed.

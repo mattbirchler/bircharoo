@@ -73,6 +73,11 @@ visible without size doing the work.
   corners, hairline border) set into the gray chrome, with an 8px gutter on the
   sides and bottom. Mobile keeps the full-bleed page.
 
+- **Icons (2026-09-14):** Phosphor (regular weight) replaces Obsidian's Lucide set.
+  Done in CSS by masking each icon's box with a Phosphor glyph, keyed by the
+  Lucide class Obsidian emits. The mapping lives in `scripts/icons.json`; run
+  `scripts/build-icons.py` after editing it. Unmapped icons fall back to Lucide.
+
 ## Out of scope for the first pass
 
 - Style Settings plugin options. The theme is opinionated first; knobs can come
