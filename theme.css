@@ -518,6 +518,12 @@ body:not(.is-mobile) .mod-root .workspace-leaf-content {
   /* Inset so the hairline shows all the way round: the parent clips overflow */
   box-shadow: inset 0 0 0 1px var(--background-modifier-border);
 }
+/* If Obsidian's translucent window is on, the gutter must clear like the
+   rest of the chrome so the card sits on the same vibrancy as the sidebar */
+.is-translucent:not(.is-fullscreen) .mod-root .workspace-tabs,
+.is-translucent:not(.is-fullscreen) .mod-root .workspace-tab-container {
+  background-color: transparent;
+}
 /* Side-by-side splits: put the gap between cards on the resize handle */
 body:not(.is-mobile) .mod-root .workspace-tabs:not(:first-of-type) .workspace-tab-container {
   padding-left: 0;
