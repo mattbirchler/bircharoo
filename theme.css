@@ -125,8 +125,10 @@ body {
 
   --bircharoo-button-bg: var(--color-base-00);
   --bircharoo-button-bg-hover: var(--color-base-10);
-  --bircharoo-button-shadow: 0 0 0 1px rgb(0 0 0 / 9%), 0 1px 2px rgb(0 0 0 / 6%);
-  --bircharoo-button-shadow-hover: 0 0 0 1px rgb(0 0 0 / 14%), 0 1px 3px rgb(0 0 0 / 8%);
+  --bircharoo-button-border: #d6d6db;
+  --bircharoo-button-border-hover: #bfbfc6;
+  --bircharoo-button-shadow: 0 0 0 1px var(--bircharoo-button-border);
+  --bircharoo-button-shadow-hover: 0 0 0 1px var(--bircharoo-button-border-hover);
 }
 
 /* ---------------------------------------------------------------------------
@@ -193,8 +195,10 @@ body {
 
   --bircharoo-button-bg: var(--color-base-30);
   --bircharoo-button-bg-hover: var(--color-base-35);
-  --bircharoo-button-shadow: 0 0 0 1px rgb(255 255 255 / 8%), 0 1px 2px rgb(0 0 0 / 30%);
-  --bircharoo-button-shadow-hover: 0 0 0 1px rgb(255 255 255 / 14%), 0 1px 3px rgb(0 0 0 / 40%);
+  --bircharoo-button-border: #4a4a50;
+  --bircharoo-button-border-hover: #5c5c63;
+  --bircharoo-button-shadow: 0 0 0 1px var(--bircharoo-button-border);
+  --bircharoo-button-shadow-hover: 0 0 0 1px var(--bircharoo-button-border-hover);
 }
 
 /* ---------------------------------------------------------------------------
@@ -660,7 +664,7 @@ body {
   background-color: var(--background-modifier-active-hover);
 }
 
-/* Buttons: flat, white, hairline edge, no gradient. Press nudges them down. */
+/* Buttons: flat fill, one solid 1px border, no shadow. Press nudges them down. */
 button:not(.clickable-icon):not(.mod-cta):not(.mod-warning) {
   background-color: var(--bircharoo-button-bg);
   box-shadow: var(--bircharoo-button-shadow);

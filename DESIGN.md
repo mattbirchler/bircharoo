@@ -64,7 +64,8 @@ visible without size doing the work.
 ## Decisions made along the way
 
 - **Buttons (2026-09-14):** flat rounded rectangles, 6px corners, 28px tall, white
-  fill in light and a raised gray in dark, hairline edge, no gradient. Chosen over
+  fill in light and a raised gray in dark, one solid 1px border, no shadow, no
+  gradient. Chosen over
   capsule glass and tinted ghost after comparing all three live in Settings.
   Dropdowns share the same surface. Primary (CTA) buttons are a solid accent fill.
 
