@@ -662,6 +662,34 @@ body:not(.is-phone) .workspace-leaf.mod-active .tree-item-self.has-focus {
   display: none;
 }
 
+/* Empty states: quiet, centered, no shouting */
+.empty-state-title {
+  font-size: var(--font-ui-medium);
+  font-weight: 500;
+  color: var(--text-muted);
+  margin: var(--size-4-3) 0;
+}
+.empty-state-action-list {
+  font-size: var(--font-ui-small);
+  margin-top: var(--size-4-2);
+}
+.empty-state-action {
+  line-height: 30px;
+  color: var(--text-muted);
+  transition: color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.empty-state-action:hover {
+  color: var(--text-accent);
+}
+.pane-empty,
+.search-empty-state {
+  color: var(--text-faint);
+  font-size: var(--font-ui-small);
+  text-align: center;
+  padding: var(--size-4-8) var(--size-4-4);
+  margin: 0;
+}
+
 /* Ribbon: icons only, no border. The ::before strip stays because it paints
    the title bar behind the macOS traffic lights; just drop its bottom rule. */
 .side-dock-ribbon,
