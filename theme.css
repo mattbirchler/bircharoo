@@ -1301,6 +1301,20 @@ body {
   --status-bar-background: transparent;
   --bircharoo-blur: blur(24px) saturate(160%);
 }
+/* Obsidian's mobile stylesheet forces dark mode to pure black and swaps the
+   modal and sidebar backgrounds for flat fills, with a selector one class more
+   specific than the palette above. Restore the warm grays and the glass. */
+.is-mobile.theme-dark {
+  --color-base-00: #1e1e20;
+  --color-base-10: #19191b;
+  --color-base-20: #242427;
+  --background-modifier-hover: rgb(255 255 255 / 6%);
+  --background-modifier-form-field: var(--color-base-25);
+  --interactive-normal: var(--color-base-25);
+  --interactive-hover: var(--color-base-30);
+  --mobile-sidebar-background: var(--bircharoo-glass-strong);
+  --modal-background: var(--bircharoo-glass-strong);
+}
 .is-mobile .workspace-drawer {
   backdrop-filter: var(--bircharoo-blur);
   -webkit-backdrop-filter: var(--bircharoo-blur);
