@@ -486,6 +486,11 @@ body {
 .mod-root .workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner {
   background-color: var(--background-modifier-hover);
 }
+/* Obsidian hides the active tab's own divider but not the one on the tab
+   before it, which reads as a line on the active tab's left edge. */
+.mod-root .workspace-tab-header:has(+ .workspace-tab-header.is-active) .workspace-tab-header-inner::after {
+  opacity: 0;
+}
 /* Close button only when hovering or active */
 .mod-root .workspace-tab-header:not(.is-active) .workspace-tab-header-inner-close-button {
   opacity: 0;

@@ -4,6 +4,8 @@ A macOS-native Obsidian theme built for writing.
 
 ![Bircharoo in light mode](teaser.png)
 
+![Close-ups: tabs, buttons, properties, and the command palette](details.png)
+
 Bircharoo treats the page as the product and keeps everything else out of the way.
 It respects the fonts you set in Appearance and tunes size, weight, and spacing so
 they read well, with a restrained heading scale where the document title is only a
