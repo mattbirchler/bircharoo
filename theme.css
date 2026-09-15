@@ -532,6 +532,85 @@ body:not(.is-phone) .workspace-leaf.mod-active .tree-item-self.has-focus {
   box-shadow: none;
 }
 
+/* Right sidebar panes: backlinks, outgoing links, search, outline.
+   Section headings read as quiet labels, result cards share the button
+   border, and matched text is tinted with the accent (information, not
+   a highlighter). */
+.backlink-pane > .tree-item-self,
+.outgoing-link-pane > .tree-item-self {
+  font-size: var(--font-ui-smaller);
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+  margin-top: var(--size-4-2);
+}
+.backlink-pane > .tree-item-self:hover,
+.outgoing-link-pane > .tree-item-self:hover {
+  background-color: transparent;
+  color: var(--text-normal);
+}
+.backlink-pane > .tree-item-self.is-collapsed,
+.outgoing-link-pane > .tree-item-self.is-collapsed {
+  color: var(--text-faint);
+}
+.backlink-pane > .tree-item-self .tree-item-flair,
+.outgoing-link-pane > .tree-item-self .tree-item-flair {
+  color: var(--text-faint);
+  font-weight: 500;
+}
+.search-result-file-title {
+  font-weight: 500;
+  color: var(--text-normal);
+}
+.search-result-file-matches {
+  border-radius: var(--radius-m);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border);
+  background-color: var(--background-primary);
+  color: var(--text-muted);
+  margin: var(--size-4-1) 0 var(--size-4-3);
+}
+.search-result-file-match {
+  padding: var(--size-4-2) var(--size-4-3);
+  border-bottom-color: var(--background-modifier-border);
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+@media (hover: hover) {
+  .search-result-file-match:hover {
+    background-color: var(--background-modifier-hover);
+  }
+}
+.search-result-file-matched-text {
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 18%);
+  border-radius: 3px;
+  padding: 0 1px;
+}
+.search-result-file-match .search-result-hover-button {
+  background-color: var(--background-primary);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border);
+  border-radius: var(--radius-s);
+}
+/* Sidebar tab strip: the active pane icon is a soft pill, not a boxed tab */
+.mod-left-split .workspace-tab-header.is-active,
+.mod-right-split .workspace-tab-header.is-active {
+  background-color: transparent;
+  box-shadow: none;
+}
+.mod-left-split .workspace-tab-header.is-active .workspace-tab-header-inner,
+.mod-right-split .workspace-tab-header.is-active .workspace-tab-header-inner {
+  background-color: var(--background-modifier-active-hover);
+  border-radius: var(--radius-s);
+}
+.mod-left-split .workspace-tab-header,
+.mod-right-split .workspace-tab-header {
+  border-radius: var(--radius-s);
+}
+.mod-left-split .workspace-tab-header::before,
+.mod-left-split .workspace-tab-header::after,
+.mod-right-split .workspace-tab-header::before,
+.mod-right-split .workspace-tab-header::after {
+  display: none;
+}
+
 /* Ribbon: icons only, no border. The ::before strip stays because it paints
    the title bar behind the macOS traffic lights; just drop its bottom rule. */
 .side-dock-ribbon,
