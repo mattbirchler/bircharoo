@@ -1,10 +1,13 @@
 # Bircharoo
 
+![Bircharoo in light mode](teaser.png)
+
 A macOS-native Obsidian theme built for writing. Calm page, restrained type scale,
 informational color, glass chrome, and controls that feel tactile. Light and dark,
 desktop and iPhone.
 
 See [DESIGN.md](DESIGN.md) for the brief and the reasoning behind the choices.
+MIT licensed.
 
 ## Install for development
 
