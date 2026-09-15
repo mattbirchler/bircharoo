@@ -247,8 +247,11 @@ body {
   --link-unresolved-opacity: 0.6;
   --tag-color: var(--text-accent);
   --tag-color-hover: var(--text-on-accent);
-  --tag-background: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 12%);
+  --tag-background: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 10%);
   --tag-background-hover: var(--interactive-accent);
+  --tag-border-width: 1px;
+  --tag-border-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 28%);
+  --tag-border-color-hover: var(--interactive-accent);
   --tag-padding-x: 0.6em;
   --tag-padding-y: 0.2em;
   --tag-weight: 500;
