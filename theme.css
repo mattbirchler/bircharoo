@@ -505,7 +505,7 @@ body:not(.is-mobile) .mod-root .workspace-tabs {
   background-color: var(--background-secondary);
 }
 body:not(.is-mobile) .mod-root .workspace-tab-container {
-  padding: 0 var(--size-4-2) var(--size-4-2);
+  padding: var(--size-4-2);
   background-color: var(--background-secondary);
 }
 body:not(.is-mobile) .mod-root .workspace-leaf {
