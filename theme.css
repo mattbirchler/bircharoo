@@ -874,6 +874,51 @@ body {
   color: var(--text-normal);
 }
 
+/* Motion: floating surfaces arrive, they do not appear */
+@keyframes bircharoo-drop-in {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes bircharoo-scale-in {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes bircharoo-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes bircharoo-rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.menu,
+.suggestion-container,
+.popover.hover-popover {
+  animation: bircharoo-drop-in var(--anim-duration-fast) var(--anim-motion-smooth) both;
+}
+.modal,
+.prompt {
+  animation: bircharoo-scale-in var(--anim-duration-moderate) var(--anim-motion-smooth) both;
+}
+.modal-bg {
+  animation: bircharoo-fade-in var(--anim-duration-moderate) var(--anim-motion-smooth) both;
+}
+.notice {
+  animation: bircharoo-rise-in var(--anim-duration-moderate) var(--anim-motion-smooth) both;
+}
+/* Sidebars ease open and closed */
+.workspace-split.mod-sidedock {
+  transition: width var(--anim-duration-moderate) var(--anim-motion-smooth);
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu, .suggestion-container, .popover.hover-popover, .modal, .prompt, .modal-bg, .notice {
+    animation: none;
+  }
+  .workspace-split.mod-sidedock {
+    transition: none;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    8. Controls
    --------------------------------------------------------------------------- */
@@ -966,7 +1011,12 @@ textarea:focus {
   box-shadow: 0 1px 2px rgb(0 0 0 / 25%), 0 0 0 0.5px rgb(0 0 0 / 10%);
 }
 
-/* Task checkboxes: springy check */
+/* Task checkboxes: a quick spring when checked, done text fades back */
+@keyframes bircharoo-check {
+  0%   { transform: scale(0.85); }
+  55%  { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
 input[type="checkbox"] {
   transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
               border-color var(--anim-duration-fast) var(--anim-motion-smooth),
@@ -974,6 +1024,17 @@ input[type="checkbox"] {
 }
 input[type="checkbox"]:active {
   transform: scale(0.9);
+}
+input[type="checkbox"]:checked {
+  animation: bircharoo-check 280ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+body {
+  --checklist-done-color: var(--text-faint);
+}
+.markdown-rendered .task-list-item.is-checked,
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task="x"],
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task="X"] {
+  transition: color var(--anim-duration-moderate) var(--anim-motion-smooth);
 }
 
 /* Dropdowns share the button surface */
