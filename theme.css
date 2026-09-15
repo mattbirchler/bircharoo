@@ -497,8 +497,11 @@ body {
   opacity: 0.7;
 }
 
-/* The page is a rounded card set into the chrome (desktop only) */
-body:not(.is-mobile) .workspace-split.mod-root {
+/* The page is a rounded card set into the chrome (desktop only). The gray
+   goes on the tab group, not the root split: painting the root breaks
+   Chromium's repaint tracking in the tab bar and leaves ghost tabs behind
+   when tabs close. */
+body:not(.is-mobile) .mod-root .workspace-tabs {
   background-color: var(--background-secondary);
 }
 body:not(.is-mobile) .mod-root .workspace-tab-container {
