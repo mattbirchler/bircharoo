@@ -41,11 +41,11 @@ modern macOS app: glass, soft depth, and controls that feel tactile.
 | Element | Size | Weight | Notes |
 | --- | --- | --- | --- |
 | Body | 1em | normal | line-height 1.65 |
-| Inline title | 1.35em | 600 | tight line-height, small gap below |
-| H1 | 1.25em | 600 | |
-| H2 | 1.15em | 600 | |
-| H3 | 1.08em | 600 | |
-| H4 | 1em | 600 | |
+| Inline title | 1.45em | 600 | tight line-height, small gap below |
+| H1 | 1.36em | 600 | |
+| H2 | 1.24em | 600 | |
+| H3 | 1.14em | 600 | |
+| H4 | 1.06em | 600 | |
 | H5 | 1em | 600 | muted color |
 | H6 | 0.95em | 600 | muted color, letter-spaced |
 
