@@ -523,6 +523,22 @@ body:not(.is-mobile) .mod-root .workspace-split.mod-vertical > .workspace-tabs:n
   padding-right: 0;
 }
 
+/* macOS translucent window: let vibrancy through the chrome, keep the page
+   card opaque so the text stays readable. Obsidian already clears most of the
+   chrome; these are the surfaces this theme paints on top. */
+.is-translucent:not(.is-fullscreen) .workspace-split.mod-root,
+.is-translucent:not(.is-fullscreen) .mod-root .workspace-tab-container,
+.is-translucent:not(.is-fullscreen) .mod-root .workspace-tab-header-container,
+.is-translucent:not(.is-fullscreen) .workspace-ribbon.mod-left:before {
+  background-color: transparent;
+}
+.is-translucent:not(.is-fullscreen) .mod-root .workspace-tab-header.is-active .workspace-tab-header-inner {
+  background-color: var(--bircharoo-glass-strong);
+}
+.is-translucent:not(.is-fullscreen) .mod-root .workspace-leaf-content {
+  background-color: var(--background-primary);
+}
+
 /* View header: title fades in, actions appear on hover */
 .view-header {
   border-bottom: none;
