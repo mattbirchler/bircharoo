@@ -578,6 +578,7 @@ body {
 .nav-folder-title {
   color: var(--text-normal);
   font-weight: 500;
+  --nav-item-weight-hover: 500; /* Obsidian's hover rule resets weight to inherit */
 }
 .nav-folder-title .collapse-icon {
   color: var(--text-faint);
@@ -895,25 +896,67 @@ body {
   margin: var(--size-2-2) var(--size-2-1);
 }
 
-/* Command palette, quick switcher, and other prompts */
+/* Command palette, quick switcher, and other prompts. Same corner radius as
+   modals and the page card, a Phosphor magnifier in the field, hotkeys and
+   footer keys drawn as small flat key caps that share the button surface. */
 .prompt {
   -webkit-backdrop-filter: var(--prompt-backdrop-filter);
   box-shadow: var(--shadow-l), 0 0 0 0.5px rgb(0 0 0 / 12%);
-  border-radius: var(--radius-l);
+  border-radius: var(--modal-radius);
+  --prompt-input-height: 52px;
 }
-.prompt-input {
+.prompt-input-container::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 18px;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  background-color: var(--text-faint);
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='m230 218-50-50a88 88 0 1 0-12 12l50 50a8 8 0 0 0 12-12M40 112a72 72 0 1 1 72 72 72 72 0 0 1-72-72'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='m230 218-50-50a88 88 0 1 0-12 12l50 50a8 8 0 0 0 12-12M40 112a72 72 0 1 1 72 72 72 72 0 0 1-72-72'/%3E%3C/svg%3E");
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  pointer-events: none;
+}
+input.prompt-input {
+  padding-inline-start: 46px;
   background: transparent;
   box-shadow: none;
-  border-bottom: 1px solid var(--background-modifier-border);
   border-radius: 0;
+  border-bottom: 1px solid var(--background-modifier-border);
 }
-.prompt-input:focus,
-.prompt-input:hover {
+input.prompt-input::placeholder {
+  color: var(--text-faint);
+}
+input.prompt-input:hover,
+input.prompt-input:focus,
+input.prompt-input:focus-visible {
+  background: transparent;
   box-shadow: none;
+  border-bottom-color: var(--background-modifier-border);
+}
+.prompt-results {
+  padding: var(--size-4-2);
 }
 .prompt .suggestion-item {
   border-radius: 6px;
+  padding: var(--size-4-2) var(--size-4-3);
   transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.prompt .suggestion-item.mod-complex .suggestion-hotkey {
+  color: var(--text-muted);
+  font-weight: 500;
+  padding: 1px 6px;
+  border-radius: 5px;
+  background-color: var(--bircharoo-button-bg);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border);
+}
+.prompt .suggestion-item.mod-complex .suggestion-flair {
+  opacity: 0.6;
 }
 .prompt .suggestion-item.is-selected {
   background-color: var(--interactive-accent);
@@ -929,6 +972,7 @@ body {
 }
 .prompt .suggestion-item.is-selected .suggestion-hotkey {
   background-color: rgb(255 255 255 / 18%);
+  box-shadow: none;
 }
 .prompt .suggestion-item.is-selected svg,
 .suggestion-container .suggestion-item.is-selected svg {
@@ -936,6 +980,18 @@ body {
 }
 .prompt-instructions {
   border-top: 1px solid var(--background-modifier-border);
+  padding: var(--size-4-2) var(--size-4-3);
+  gap: var(--size-4-4);
+  color: var(--text-faint);
+}
+.prompt-instruction-command {
+  font-family: var(--font-interface);
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 0 5px;
+  border-radius: 4px;
+  background-color: var(--bircharoo-button-bg);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border);
 }
 
 /* Inline suggestions (links, tags) inside the editor */
@@ -1190,7 +1246,7 @@ button:disabled {
 }
 
 /* Text inputs */
-input[type="text"],
+input[type="text"]:not(.prompt-input),
 input[type="search"],
 input[type="email"],
 input[type="password"],
@@ -1198,7 +1254,7 @@ input[type="number"],
 textarea {
   transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth);
 }
-input[type="text"]:focus,
+input[type="text"]:not(.prompt-input):focus,
 input[type="search"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
