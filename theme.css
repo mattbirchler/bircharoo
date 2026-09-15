@@ -319,9 +319,24 @@ body {
    5. Writing surface
    --------------------------------------------------------------------------- */
 
-/* The inline title sits close to the body, separated by weight not distance */
+/* The inline title sits close to the body, separated by weight not distance.
+   It behaves like a field: a soft well on hover, a firmer one while editing. */
 .inline-title {
   letter-spacing: -0.01em;
+  margin-inline: calc(-1 * var(--size-4-2));
+  padding: var(--size-2-1) var(--size-4-2);
+  border-radius: var(--radius-m);
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.inline-title:hover {
+  background-color: var(--background-modifier-hover);
+}
+.inline-title:focus {
+  background-color: var(--background-modifier-active-hover);
+  outline: none;
+}
+body {
+  --inline-title-margin-bottom: 0.7em;
 }
 
 /* Editing view: match the reading-view heading treatment */
@@ -384,6 +399,15 @@ a.tag,
 .markdown-rendered hr,
 .markdown-source-view.mod-cm6 .cm-line.hr hr {
   border-top: var(--hr-thickness) solid var(--hr-color);
+}
+
+/* Caret takes the accent; selection is a soft accent tint everywhere */
+body {
+  --caret-color: var(--text-accent);
+}
+.markdown-preview-view ::selection,
+.markdown-source-view.mod-cm6 .cm-content ::selection {
+  background-color: var(--text-selection);
 }
 
 /* Selection in the editor */
