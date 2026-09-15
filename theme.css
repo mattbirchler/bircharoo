@@ -436,6 +436,7 @@ body {
 /* Tab bar: detached tabs that sit inside the bar, Safari style. The active tab
    is a flat pill with the same border as buttons; no curves, no shadows. */
 body {
+  --header-height: 44px; /* 4px taller than stock so tabs get 2px more above and below */
   --tab-curve: 0px;
   --tab-radius: 6px;
   --tab-radius-active: 6px;
