@@ -1,6 +1,6 @@
 # Bircharoo design brief
 
-An Obsidian theme that feels native to macOS and treats writing as the main event.
+An Obsidian theme that treats writing as the main event.
 
 ## Who it's for
 
