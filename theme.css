@@ -804,8 +804,10 @@ body:not(.is-phone) .workspace-leaf.mod-active .tree-item-self.has-focus {
   border-bottom-color: transparent;
 }
 
-/* Status bar: a floating glass pill, inset from the card corner so it never
-   straddles the edge. Items are evenly spaced with a hairline between them. */
+/* Status bar: a floating pill, inset from the card corner so it never
+   straddles the edge. Deliberately no backdrop blur: a fixed element with
+   backdrop-filter breaks Chromium's repaint tracking and leaves ghost tabs
+   behind in the tab bar when tabs close. */
 .status-bar {
   bottom: var(--size-4-4);
   right: var(--size-4-4);
@@ -815,9 +817,7 @@ body:not(.is-phone) .workspace-leaf.mod-active .tree-item-self.has-focus {
   min-height: 28px;
   align-items: center;
   border-radius: var(--radius-m);
-  background-color: var(--bircharoo-glass-strong);
-  backdrop-filter: var(--bircharoo-blur);
-  -webkit-backdrop-filter: var(--bircharoo-blur);
+  background-color: var(--bircharoo-button-bg);
   box-shadow: 0 0 0 1px var(--bircharoo-button-border), var(--shadow-xs);
   color: var(--text-muted);
   font-size: var(--font-ui-smaller);
