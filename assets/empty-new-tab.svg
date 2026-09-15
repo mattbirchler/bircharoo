@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" stroke="#000" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+  <!-- page with a folded corner -->
+  <path d="M36 16 H78 L90 28 V98 a6 6 0 0 1 -6 6 H36 a6 6 0 0 1 -6 -6 V22 a6 6 0 0 1 6 -6 Z"/>
+  <path d="M78 16 V28 H90"/>
+  <!-- text lines -->
+  <path d="M42 40 H74"/>
+  <path d="M42 52 H78"/>
+  <path d="M42 64 H62"/>
+  <!-- pen resting across the corner -->
+  <path d="M84 100 L108 76"/>
+  <path d="M84 100 l-5 7 7 -5 Z"/>
+  <path d="M108 76 l3 -3"/>
+  <circle cx="112.5" cy="71.5" r="1.75"/>
+  <!-- sparkles -->
+  <path d="M18 30 v10 M13 35 h10"/>
+  <path d="M104 40 v6 M101 43 h6"/>
+</svg>
