@@ -1,24 +1,23 @@
 # Bircharoo
 
-A macOS-native Obsidian theme built for writing.
+A calm Obsidian theme built for writing.
 
 ![Bircharoo in light mode](teaser.png)
 
 ![Close-ups: tabs, buttons, properties, and the command palette](details.png)
 
-Bircharoo treats the page as the product and keeps everything else out of the way.
-It respects the fonts you set in Appearance and tunes size, weight, and spacing so
-they read well, with a restrained heading scale where the document title is only a
-touch larger than body text.
+Bircharoo keeps the page front and center and quiets everything around it. It uses
+whatever fonts you set in Appearance and tunes size, weight, and spacing so they read
+well. Headings step down in size, but the document title is only a touch larger than
+body text, so a note never shouts.
 
 ## What you get
 
 - **A calm writing surface.** Generous line height, a readable measure, links and
   tags in your accent color, headings that stay neutral.
-- **macOS-native chrome.** The note sits as a rounded card inside a soft gray
-  frame. Tabs, buttons, dropdowns, and the file explorer follow modern macOS
-  conventions, including Finder-style selection that takes the accent while the
-  sidebar has focus.
+- **Quiet chrome.** The note sits as a rounded card inside a soft gray frame.
+  Tabs, buttons, dropdowns, and the file explorer are restyled to match it, and the
+  selected file takes your accent color while the sidebar has focus.
 - **Glass where it counts.** Menus, the command palette, suggestions, modals,
   hover previews, and notices are frosted. Chrome that never moves stays solid.
 - **Tactile controls.** Buttons press, icons respond, toggles ease, checkboxes
