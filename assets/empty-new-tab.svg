@@ -6,11 +6,6 @@
   <path d="M42 40 H74"/>
   <path d="M42 52 H78"/>
   <path d="M42 64 H62"/>
-  <!-- pen resting across the corner -->
-  <path d="M84 100 L108 76"/>
-  <path d="M84 100 l-5 7 7 -5 Z"/>
-  <path d="M108 76 l3 -3"/>
-  <circle cx="112.5" cy="71.5" r="1.75"/>
   <!-- sparkles -->
   <path d="M18 30 v10 M13 35 h10"/>
   <path d="M104 40 v6 M101 43 h6"/>

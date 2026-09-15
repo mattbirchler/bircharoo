@@ -9,6 +9,6 @@ DEST="$VAULT/.obsidian/themes/Bircharoo"
 mkdir -p "$DEST"
 cp "$SRC/manifest.json" "$SRC/theme.css" "$DEST/"
 if command -v obsidian >/dev/null 2>&1; then
-  obsidian eval code="app.customCss.readThemes().then(()=>app.customCss.setTheme('Bircharoo')).then(()=>'reloaded')" >/dev/null 2>&1 || true
+  obsidian eval code="app.customCss.readThemes().then(()=>app.customCss.setTheme('Bircharoo')).then(()=>new Promise(r=>setTimeout(r,800))).then(()=>'reloaded')" >/dev/null 2>&1 || true
 fi
 echo "Installed to $DEST"
