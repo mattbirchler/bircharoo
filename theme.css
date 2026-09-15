@@ -673,7 +673,6 @@ body:not(.is-phone) .workspace-leaf.mod-active .tree-item-self.has-focus {
   from { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
   to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
-}
 .empty-state-container {
   position: relative;
   padding-top: 140px;
