@@ -1293,13 +1293,27 @@ body {
    --------------------------------------------------------------------------- */
 .is-mobile {
   --file-margins-y: var(--size-4-6);
-  --inline-title-size: 1.4em;
+  --inline-title-size: 1.35em;
   --mobile-sidebar-background: var(--bircharoo-glass-strong);
   --modal-background: var(--bircharoo-glass-strong);
   --prompt-background: var(--bircharoo-glass-strong);
   --menu-background: var(--bircharoo-glass-strong);
   --status-bar-background: transparent;
   --bircharoo-blur: blur(24px) saturate(160%);
+}
+/* Obsidian's mobile stylesheet forces dark mode to pure black and swaps the
+   modal and sidebar backgrounds for flat fills, with a selector one class more
+   specific than the palette above. Restore the warm grays and the glass. */
+.is-mobile.theme-dark {
+  --color-base-00: #1e1e20;
+  --color-base-10: #19191b;
+  --color-base-20: #242427;
+  --background-modifier-hover: rgb(255 255 255 / 6%);
+  --background-modifier-form-field: var(--color-base-25);
+  --interactive-normal: var(--color-base-25);
+  --interactive-hover: var(--color-base-30);
+  --mobile-sidebar-background: var(--bircharoo-glass-strong);
+  --modal-background: var(--bircharoo-glass-strong);
 }
 .is-mobile .workspace-drawer {
   backdrop-filter: var(--bircharoo-blur);
@@ -1317,12 +1331,38 @@ body {
   transform: none;
   background-color: var(--background-modifier-active-hover);
 }
-/* Mobile navigation bar */
-.is-mobile .mobile-navbar {
+/* The note title on a phone: a touch smaller than desktop, never smaller than
+   body. Set on the element itself, in absolute terms, so nothing upstream can
+   shrink or gray it. */
+.is-mobile .inline-title:not([data-level]) {
+  font-size: calc(var(--font-text-size) * 1.35);
+  font-weight: 600;
+  color: var(--text-normal);
+}
+/* Docked navigation bar (older layout): a glass strip along the bottom */
+.is-mobile:not(.is-floating-nav) .mobile-navbar {
   background-color: var(--bircharoo-glass-strong);
   backdrop-filter: var(--bircharoo-blur);
   -webkit-backdrop-filter: var(--bircharoo-blur);
   border-top: 1px solid var(--bircharoo-glass-edge);
+}
+/* Floating navigation (current phone layout): the nav bar and the header
+   buttons are Obsidian's "raised" surfaces. Give them the same glass as the
+   theme's menus and status bar: frosted fill, hairline edge, soft shadow, and
+   the page card's corner radius instead of a full capsule. Obsidian's own iOS
+   sheen overlay is switched off so the two treatments do not stack. */
+.is-mobile.is-floating-nav {
+  --raised-background: var(--bircharoo-glass-strong);
+  --raised-blur: var(--bircharoo-blur);
+  --raised-shadow: var(--shadow-s), 0 0 0 0.5px rgb(0 0 0 / 12%);
+  --raised-mask-display: none;
+  --raised-mask-border-width: 0;
+  --navbar-radius: 14px;
+  --view-header-action-radius: 14px;
+}
+.is-mobile.is-floating-nav .mod-raised {
+  -webkit-backdrop-filter: var(--raised-blur);
+  border: 1px solid var(--bircharoo-glass-edge);
 }
 .is-mobile .mobile-toolbar {
   background-color: var(--bircharoo-glass-strong);
