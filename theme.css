@@ -883,6 +883,66 @@ body {
 .popover.hover-popover .markdown-embed {
   background-color: transparent;
 }
+/* Preview content: tighter margins, a card feel */
+.popover.hover-popover .markdown-preview-view {
+  --file-margins: var(--size-4-3) var(--size-4-5) var(--size-4-5);
+  --inline-title-size: var(--font-ui-small);
+  --inline-title-weight: 600;
+  --inline-title-line-height: 1.3;
+}
+/* The note's title becomes a sticky header bar with the open button at right */
+.popover.hover-popover .mod-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin: calc(-1 * var(--size-4-3)) calc(-1 * var(--size-4-5)) var(--size-4-3);
+}
+.popover.hover-popover .inline-title {
+  display: block;
+  margin: 0;
+  padding: var(--size-4-2) var(--size-4-10) var(--size-4-2) var(--size-4-5);
+  border-radius: 0;
+  background-color: var(--bircharoo-glass-strong);
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+  box-shadow: inset 0 -1px 0 var(--background-modifier-border);
+  color: var(--text-muted);
+  letter-spacing: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+.popover.hover-popover .inline-title:hover {
+  background-color: var(--bircharoo-glass-strong);
+}
+.popover.hover-popover .markdown-embed-link {
+  top: var(--size-2-2);
+  right: var(--size-4-2);
+  color: var(--text-muted);
+  border-radius: var(--radius-s);
+  padding: var(--size-2-1);
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.popover.hover-popover .markdown-embed-link:hover {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+/* Properties are noise in a preview card */
+.popover.hover-popover .mod-frontmatter,
+.popover.hover-popover .metadata-container {
+  display: none;
+}
+/* Inner shadow at the bottom so long previews read as clipped, not cut */
+.popover.hover-popover::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 24px;
+  pointer-events: none;
+  background: linear-gradient(to top, var(--bircharoo-glass-strong), transparent);
+}
 
 /* Tooltips */
 .tooltip {
