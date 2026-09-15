@@ -473,6 +473,31 @@ body {
   opacity: 0.7;
 }
 
+/* The page is a rounded card set into the chrome (desktop only) */
+body:not(.is-mobile) .workspace-split.mod-root {
+  background-color: var(--background-secondary);
+}
+body:not(.is-mobile) .mod-root .workspace-tab-container {
+  padding: 0 var(--size-4-2) var(--size-4-2);
+  background-color: var(--background-secondary);
+}
+body:not(.is-mobile) .mod-root .workspace-leaf {
+  background-color: transparent;
+}
+body:not(.is-mobile) .mod-root .workspace-leaf-content {
+  background-color: var(--background-primary);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--background-modifier-border);
+}
+/* Side-by-side splits: put the gap between cards on the resize handle */
+body:not(.is-mobile) .mod-root .workspace-tabs:not(:first-of-type) .workspace-tab-container {
+  padding-left: 0;
+}
+body:not(.is-mobile) .mod-root .workspace-split.mod-vertical > .workspace-tabs:not(:last-child) .workspace-tab-container {
+  padding-right: 0;
+}
+
 /* View header: title fades in, actions appear on hover */
 .view-header {
   border-bottom: none;

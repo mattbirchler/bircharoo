@@ -69,6 +69,10 @@ visible without size doing the work.
   capsule glass and tinted ghost after comparing all three live in Settings.
   Dropdowns share the same surface. Primary (CTA) buttons are a solid accent fill.
 
+- **Page as a card (2026-09-14):** on desktop the note pane is a rounded card (10px
+  corners, hairline border) set into the gray chrome, with an 8px gutter on the
+  sides and bottom. Mobile keeps the full-bleed page.
+
 ## Out of scope for the first pass
 
 - Style Settings plugin options. The theme is opinionated first; knobs can come
