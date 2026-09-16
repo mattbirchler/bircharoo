@@ -558,9 +558,16 @@ body:not(.is-mobile) .mod-root .workspace-split.mod-vertical > .workspace-tabs:n
   color: var(--text-normal);
 }
 
+/* Keep title bars opaque when Obsidian's translucent window setting is on.
+   The core translucency rule otherwise overrides --titlebar-background,
+   leaving detached settings and community windows with a dark title bar. */
+.is-translucent:not(.is-fullscreen) .titlebar {
+  background-color: var(--titlebar-background);
+}
+
 /* File explorer and other trees: readable labels, folders a step heavier,
-   no indentation guides. Selection is a solid fill like a native sidebar:
-   accent while the explorer has focus, neutral once focus moves to the note. */
+   no indentation guides. The current note keeps its accent fill when focus
+   moves to the editor. */
 body {
   --nav-item-color: var(--bircharoo-sidebar-text);
   --nav-item-color-hover: var(--text-normal);
@@ -588,17 +595,17 @@ body {
 .nav-folder-title .collapse-icon {
   color: var(--text-faint);
 }
-/* Focused selection takes the accent, Finder style */
-.workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active,
-.workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active:hover {
+/* Keep the current note accented independently of explorer focus. */
+.nav-files-container .tree-item-self.is-active,
+.nav-files-container .tree-item-self.is-active:hover {
   background-color: var(--interactive-accent);
   color: var(--text-on-accent);
 }
-.workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active .collapse-icon,
-.workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active .nav-file-tag,
-.workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active .tree-item-icon,
-.workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active .iconize-icon,
-.workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active .iconize-icon svg {
+.nav-files-container .tree-item-self.is-active .collapse-icon,
+.nav-files-container .tree-item-self.is-active .nav-file-tag,
+.nav-files-container .tree-item-self.is-active .tree-item-icon,
+.nav-files-container .tree-item-self.is-active .iconize-icon,
+.nav-files-container .tree-item-self.is-active .iconize-icon svg {
   color: var(--text-on-accent);
   fill: currentColor;
 }
