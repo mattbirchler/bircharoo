@@ -530,10 +530,9 @@ a.tag,
 }
 .callout .callout-fold {
   color: var(--text-faint);
-  transition: transform var(--anim-duration-fast) var(--anim-motion-smooth);
 }
-.callout .callout-fold.is-collapsed {
-  transform: rotate(-90deg);
+.callout .callout-fold .svg-icon {
+  transition: transform var(--anim-duration-fast) var(--anim-motion-smooth);
 }
 
 /* Code blocks: quiet border instead of a loud fill. The copy button and the

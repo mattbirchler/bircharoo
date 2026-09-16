@@ -19,7 +19,7 @@ DIR="$(cd "$(dirname "$0")/.." && pwd)"
 NOTE="Bircharoo Test.md"
 NARROW_WIDTH=430
 NARROW_HEIGHT=932
-MAX_PAGES=6
+MAX_PAGES=8
 
 ob() { obsidian vault="$VAULT_NAME" "$@"; }
 ev() { ob eval code="$1" | sed 's/^=> //'; }
@@ -67,15 +67,10 @@ sleep 1
 
 # Scroll the note one viewport at a time so the whole test note is covered.
 scroller() { [ "$1" = reading ] && echo ".workspace-leaf.mod-active .markdown-preview-view" || echo ".workspace-leaf.mod-active .cm-scroller"; }
-page_count() {
-  # The view can take a moment to lay out after a mode switch; wait for it.
-  local n=NaN i
-  for i in 1 2 3 4 5 6 7 8 9 10; do
-    n="$(ev "(function(){var s=document.querySelector('$(scroller "$1")');if(!s||!s.clientHeight)return NaN;return Math.min($MAX_PAGES,Math.ceil(s.scrollHeight/s.clientHeight));})()")"
-    case "$n" in ''|*[!0-9]*) sleep 0.3 ;; *) break ;; esac
-  done
-  case "$n" in ''|*[!0-9]*) echo 1 ;; *) echo "$n" ;; esac
-}
+# Reading view renders sections lazily, so the note grows as you scroll.
+# Walk down one viewport at a time and stop when the bottom stops moving.
+at_end() { ev "(function(){var s=document.querySelector('$(scroller "$1")');return s.scrollTop+s.clientHeight>=s.scrollHeight-2;})()"; }
+scroll_to_end() { ev "(function(){var s=document.querySelector('$(scroller "$1")');s.scrollTop=s.scrollHeight;})()" >/dev/null; }
 scroll_to_page() { ev "(function(){var s=document.querySelector('$(scroller "$1")');s.scrollTop=s.clientHeight*$2;})()" >/dev/null; }
 
 echo "Desktop"
@@ -83,11 +78,14 @@ for mode in light dark; do
   set_mode "$mode"; sleep 0.6
   for view in reading editing; do
     set_view "$view"; sleep 1.2
-    n="$(page_count "$view")"
-    for ((p=0; p<n; p++)); do
-      scroll_to_page "$view" "$p"; sleep 0.4
+    for ((p=0; p<MAX_PAGES; p++)); do
+      scroll_to_page "$view" "$p"; sleep 0.5
       shot "$OUT/$mode-$view-$((p+1)).png"
+      [ "$(at_end "$view")" = true ] && break
     done
+    # The last page always shows the foot of the note
+    scroll_to_end "$view"; sleep 0.5
+    shot "$OUT/$mode-$view-end.png"
   done
 done
 

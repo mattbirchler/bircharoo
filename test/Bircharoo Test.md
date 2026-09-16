@@ -81,7 +81,7 @@ A table with figures, so numerals and alignment can be checked:
 
 An embedded section of this same note:
 
-![[Bircharoo Test#Heading two]]
+![[Bircharoo Test#Colophon]]
 
 Inline math $E = mc^2$ and a block:
 
@@ -98,6 +98,11 @@ graph LR
 ---
 
 A final paragraph after a horizontal rule. #another-tag
+
+## Colophon
+
+A short closing section, kept small so it can be embedded above without
+dragging the whole note along with it.
 
 [^1]: The first footnote, short and sweet.
 [^note]: A named footnote with a [link](https://birchtree.me) in it, long enough to wrap onto a second line when the column is narrow.
