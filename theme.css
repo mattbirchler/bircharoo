@@ -390,16 +390,280 @@ a.tag,
   background-color: var(--tag-background-hover);
 }
 
-/* Callouts: soft, rounded, no heavy borders */
+/* Callouts: soft, rounded, no heavy borders. Obsidian hands the callout color
+   over as a real color, so mix it rather than wrapping it in rgb(). */
 .callout {
-  box-shadow: inset 0 0 0 1px rgb(var(--callout-color) / 18%);
-  background-color: rgb(var(--callout-color) / 6%);
+  --callout-border-width: 0px;
+  --callout-padding: var(--size-4-3) var(--size-4-4) var(--size-4-3) var(--size-4-5);
+  --callout-title-weight: 600;
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--callout-color) 22%, transparent);
+  background-color: color-mix(in oklch, var(--callout-color) 7%, transparent);
+}
+.callout .callout-title {
+  align-items: center;
+}
+.callout .callout-title-inner {
+  color: var(--text-normal);
+}
+.callout .callout-content > :first-child {
+  margin-top: var(--size-4-2);
+}
+.callout .callout-content > :last-child {
+  margin-bottom: 0;
+}
+.callout.is-collapsible .callout-title {
+  transition: opacity var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.callout .callout-fold {
+  color: var(--text-faint);
+  transition: transform var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.callout .callout-fold.is-collapsed {
+  transform: rotate(-90deg);
 }
 
-/* Code blocks: quiet border instead of a loud fill */
+/* Code blocks: quiet border instead of a loud fill. The copy button and the
+   language label are small key caps that share the button surface and fade in
+   on hover rather than popping. */
+body {
+  --code-size: 0.9em;
+}
 .markdown-rendered pre,
 .markdown-source-view.mod-cm6 .HyperMD-codeblock {
   box-shadow: none;
+}
+.markdown-rendered pre {
+  padding: var(--size-4-4);
+  line-height: 1.55;
+}
+.markdown-rendered pre:not(:hover) > button.copy-code-button {
+  display: block;
+  opacity: 0;
+}
+.markdown-rendered button.copy-code-button {
+  margin: var(--size-4-2);
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  background-color: var(--bircharoo-button-bg);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border);
+  opacity: 1;
+  transition: opacity var(--anim-duration-fast) var(--anim-motion-smooth),
+              background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+@media (hover: hover) {
+  .markdown-rendered button.copy-code-button:hover {
+    color: var(--text-normal);
+    background-color: var(--bircharoo-button-bg-hover);
+    box-shadow: 0 0 0 1px var(--bircharoo-button-border-hover);
+  }
+}
+.markdown-source-view.mod-cm6 .code-block-flair {
+  top: var(--size-4-2);
+  right: var(--size-4-2);
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  background-color: var(--bircharoo-button-bg);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border);
+}
+/* Inline code and kbd: a little air around the text */
+.markdown-rendered code:not(pre code),
+.cm-s-obsidian span.cm-inline-code {
+  padding: 0.1em 0.35em;
+  border-radius: 5px;
+}
+.markdown-rendered kbd {
+  font-family: var(--font-interface);
+  font-size: 0.8em;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 0.1em 0.5em 0.15em;
+  border-radius: 5px;
+  background-color: var(--bircharoo-button-bg);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border), 0 1px 0 var(--bircharoo-button-border);
+  vertical-align: 0.05em;
+}
+
+/* Tables: rules between rows, no vertical lines, a quiet header, and tabular
+   numerals so columns of figures line up. */
+body {
+  --table-border-width: 1px;
+  --table-border-color: var(--background-modifier-border);
+  --table-column-first-border-width: 0px;
+  --table-column-last-border-width: 0px;
+  --table-row-last-border-width: 1px;
+  --table-header-border-width: 0px;
+  --table-header-border-color: var(--background-modifier-border-hover);
+  --table-header-background: transparent;
+  --table-header-background-hover: transparent;
+  --table-header-weight: 600;
+  --table-header-size: calc(var(--font-text-size) * 0.85);
+  --table-header-color: var(--text-muted);
+  --table-text-size: calc(var(--font-text-size) * 0.95);
+  --table-line-height: 1.45;
+  --table-row-background-hover: var(--background-primary-alt);
+  --table-row-alt-background-hover: var(--background-primary-alt);
+  --table-selection: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 12%);
+  --table-selection-border-color: var(--interactive-accent);
+  --table-drag-handle-background: var(--background-modifier-hover);
+  --table-drag-handle-color: var(--text-faint);
+  --table-add-button-border-color: var(--background-modifier-border);
+  --table-add-button-background: var(--background-primary);
+}
+.markdown-rendered table,
+.markdown-source-view.mod-cm6 .cm-table-widget table {
+  font-variant-numeric: tabular-nums;
+}
+.markdown-rendered th,
+.markdown-rendered td,
+.markdown-source-view.mod-cm6 .cm-table-widget th,
+.markdown-source-view.mod-cm6 .cm-table-widget td {
+  border-inline-width: 0;
+  padding: var(--size-4-2) var(--size-4-3);
+}
+.markdown-rendered th,
+.markdown-source-view.mod-cm6 .cm-table-widget th {
+  letter-spacing: 0.01em;
+  padding-bottom: var(--size-4-2);
+}
+.markdown-rendered thead tr > th,
+.markdown-source-view.mod-cm6 .cm-table-widget thead tr > th {
+  border-bottom-width: 1px;
+  border-bottom-color: var(--table-header-border-color);
+}
+.markdown-rendered th:first-child,
+.markdown-rendered td:first-child,
+.markdown-source-view.mod-cm6 .cm-table-widget th:first-child,
+.markdown-source-view.mod-cm6 .cm-table-widget td:first-child {
+  padding-inline-start: var(--size-4-1);
+}
+.markdown-rendered tbody tr,
+.markdown-source-view.mod-cm6 .cm-table-widget tbody tr {
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+/* Table editor controls share the button surface */
+.markdown-source-view.mod-cm6 .cm-table-widget .table-row-btn,
+.markdown-source-view.mod-cm6 .cm-table-widget .table-col-btn {
+  color: var(--text-muted);
+  background-color: var(--table-add-button-background);
+  border-radius: var(--radius-s);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border);
+  transition: color var(--anim-duration-fast) var(--anim-motion-smooth),
+              background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.markdown-source-view.mod-cm6 .cm-table-widget .table-row-drag-handle,
+.markdown-source-view.mod-cm6 .cm-table-widget .table-col-drag-handle {
+  border-radius: var(--radius-s);
+  transition: opacity var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+
+/* Images: the same corners as embeds, and a caption when the embed carries a
+   real alt text (a filename is not a caption). */
+body {
+  --image-radius: var(--embed-radius);
+}
+.markdown-rendered img,
+.markdown-source-view.mod-cm6 img {
+  border-radius: var(--image-radius);
+}
+.markdown-rendered .internal-embed.image-embed,
+.markdown-source-view.mod-cm6 .internal-embed.image-embed {
+  display: inline-block;
+  max-width: 100%;
+}
+.markdown-rendered .internal-embed.image-embed[alt]:not([alt=""]):not([alt$=".png"]):not([alt$=".jpg"]):not([alt$=".jpeg"]):not([alt$=".gif"]):not([alt$=".webp"]):not([alt$=".svg"]):not([alt$=".avif"]):not([alt$=".bmp"]):not([alt$=".heic"]):not([alt$=".PNG"]):not([alt$=".JPG"]):not([alt$=".JPEG"])::after,
+.markdown-source-view.mod-cm6 .internal-embed.image-embed[alt]:not([alt=""]):not([alt$=".png"]):not([alt$=".jpg"]):not([alt$=".jpeg"]):not([alt$=".gif"]):not([alt$=".webp"]):not([alt$=".svg"]):not([alt$=".avif"]):not([alt$=".bmp"]):not([alt$=".heic"]):not([alt$=".PNG"]):not([alt$=".JPG"]):not([alt$=".JPEG"])::after {
+  content: attr(alt);
+  display: block;
+  margin-top: var(--size-4-2);
+  font-size: calc(var(--font-text-size) * 0.85);
+  line-height: 1.45;
+  color: var(--text-muted);
+  text-align: center;
+}
+/* Obsidian sets alt to the filename plus a size when a width is given, e.g.
+   "photo.png|300"; the caption rule above already skips filenames, so skip
+   the sized form as well. */
+.markdown-rendered .internal-embed.image-embed[alt*="|"]::after,
+.markdown-source-view.mod-cm6 .internal-embed.image-embed[alt*="|"]::after {
+  content: none;
+}
+
+/* Footnotes: small accent markers in the text, and a quiet section at the
+   foot of the note with a hairline above instead of a bare rule. */
+.markdown-rendered sup.footnote-ref {
+  font-size: 0.72em;
+  font-weight: 500;
+  line-height: 0;
+  vertical-align: baseline;
+  position: relative;
+  top: -0.55em;
+}
+.markdown-rendered .footnote-link,
+.markdown-rendered sup.footnote-ref a {
+  text-decoration: none;
+  padding: 0 0.15em;
+  border-radius: 3px;
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.markdown-rendered .footnote-link:hover,
+.markdown-rendered sup.footnote-ref a:hover {
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 12%);
+}
+.markdown-rendered .footnotes {
+  margin-top: var(--heading-spacing);
+  padding-top: var(--size-4-4);
+  border-top: 1px solid var(--background-modifier-border);
+  color: var(--text-muted);
+  font-size: calc(var(--font-text-size) * 0.88);
+  line-height: 1.55;
+}
+.markdown-rendered .footnotes hr,
+.markdown-rendered hr + .footnotes {
+  border-top: none;
+}
+.markdown-rendered .footnotes hr {
+  display: none;
+}
+.markdown-rendered .footnotes ol {
+  padding-inline-start: 1.6em;
+  margin: 0;
+}
+.markdown-rendered .footnotes li {
+  margin-bottom: var(--size-4-2);
+}
+.markdown-rendered .footnotes li::marker {
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+.markdown-rendered .footnotes li p {
+  margin: 0;
+}
+.markdown-rendered .footnote-backref {
+  color: var(--text-faint);
+  text-decoration: none;
+  padding: 0 0.2em;
+  border-radius: 3px;
+  transition: color var(--anim-duration-fast) var(--anim-motion-smooth),
+              background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.markdown-rendered .footnote-backref:hover {
+  color: var(--text-accent);
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 12%);
+}
+/* Editing view: the reference marker takes the accent, the definition label is quiet */
+.cm-s-obsidian span.cm-footref {
+  color: var(--text-accent);
+  font-weight: 500;
+}
+.cm-s-obsidian span.cm-hmd-footnote {
+  color: var(--text-muted);
 }
 
 /* Horizontal rule: hairline */
