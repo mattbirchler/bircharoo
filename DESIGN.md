@@ -78,14 +78,61 @@ visible without size doing the work.
   Lucide class Obsidian emits. The mapping lives in `scripts/icons.json`; run
   `scripts/build-icons.py` after editing it. Unmapped icons fall back to Lucide.
 
-## Out of scope for the first pass
+- **The writing surface itself (2026-09-16):** the first pass styled chrome and
+  left tables, images, footnotes, code blocks, properties, and embeds at stock. A
+  review put those first, since they are where a reader forms an opinion of a
+  writing theme. Tables lose vertical rules and get tabular figures; images take
+  the embed radius and show a caption when the alt text is not a filename;
+  footnotes are small accent markers over a quiet section; embeds are inset cards
+  rather than quoted blocks. Editing-view scaffolding (formatting marks, block ids,
+  fold handles, comments) fades to the faint text color.
 
-- Style Settings plugin options. The theme is opinionated first; knobs can come
-  later if a choice turns out to be contentious.
+- **Typographic craft (2026-09-16):** balanced heading wraps, pretty paragraph
+  wrapping, hanging punctuation where the engine supports it, tabular numerals in
+  anything that counts. Invisible when it works, which is the point.
+
+- **Print (2026-09-16):** PDF export is white paper and black ink with no screen
+  furniture. Links go black with a gray underline. Forced colors keep callouts,
+  highlights, and checkboxes visible.
+
+- **Inactive window (2026-09-16):** chrome drops a step in contrast and the accent
+  leaves the selected file and active tab when the window loses focus, the way a
+  native Mac app dims. The page is untouched.
+
+- **Plugins (2026-09-16):** only plugins whose UI is large, common, and stable
+  enough to be worth it: Bases (core), Dataview, Tasks, Calendar, Kanban, Projects,
+  Omnisearch, Hover Editor. Lanes and columns sit on the gray ground, cards are
+  small page cards, popups are glass. Templater, Periodic Notes, Outliner, and
+  Advanced Tables have no UI of their own and are left alone. Excalidraw ships a
+  complete UI that already reads Obsidian's variables.
+
+- **Style Settings (2026-09-16):** reversed from out of scope. The first outside
+  pull request asked for a taste change (the selected file keeping the accent
+  after focus moves to the editor), which is exactly what a toggle is for. Six
+  toggles, each an exception to a default: flat page, solid surfaces, Obsidian's
+  icons, selection keeps the accent, larger headings, focus mode. Defaults leave
+  the theme unchanged. Focus mode lives here rather than as a default because a
+  calm theme should not dim your own words unless you ask.
+
+- **Verification (2026-09-16):** `scripts/screenshots.sh` captures the test note in
+  every mode through the Obsidian CLI so changes can be diffed. Development runs in
+  a shared dev vault (`~/Obsidian/Birchler-alt`) that has the styled plugins
+  installed, never in the personal vault. Selectors are checked statically against
+  Obsidian's own stylesheet before anything is committed.
+
+## Out of scope
+
 - Custom fonts of any kind.
-- Focus or zen mode.
+- Plugins beyond the list above. Chasing the long tail is how themes reach nine
+  thousand lines.
+- A typewriter mode or any change to where the caret sits.
 
 ## Things to check against real notes
+
+- `test/Bircharoo Test.md` in reading and editing view, light and dark, desktop
+  and phone width (`scripts/screenshots.sh` does all of these)
+- A Bases table and card view, a Kanban board, a Projects board
+- PDF export of a long post
 
 - Long-form posts in `birchtree/` (headings, links, quotes, images)
 - Highlights folders (long lists, callouts)

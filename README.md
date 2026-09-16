@@ -24,9 +24,34 @@ body text, so a note never shouts.
   spring. Motion is short and switches off under Reduce Motion.
 - **Phosphor icons** in place of the stock set, drawn in your accent and text
   colors.
+- **Every part of a note.** Tables with hairline rows and lined-up figures, images
+  with the embed's corners and a caption when you give one, footnotes as small
+  accent markers, code blocks with a copy button that fades in, callouts, embeds as
+  soft inset cards, and a quiet properties block.
+- **Typographic craft.** Headings wrap to balanced lines, paragraphs never strand a
+  last word, and counts use tabular numerals so nothing jumps.
+- **Print and PDF export** come out as white paper and black ink, with the screen
+  furniture gone.
+- **Native manners.** The chrome goes quiet when another window has focus, and the
+  graph and canvas take the same neutrals as the page.
+- **Plugins.** Bases, Dataview, Tasks, Calendar, Kanban, Projects, Omnisearch, and
+  Hover Editor look like they came with the theme.
 - **Light and dark**, designed as equals. Dark is a warm neutral gray, never pure
   black.
 - **iPhone and iPad** carry the same type scale and glass surfaces.
+
+## Options
+
+Bircharoo is opinionated first, but a few choices are yours. Install the
+[Style Settings](https://github.com/mgmeyers/obsidian-style-settings) plugin and
+look under Settings > Style Settings > Bircharoo:
+
+- **Flat page**: no rounded card, the note fills its pane.
+- **Solid surfaces**: no frosted glass.
+- **Use Obsidian's icons**: keep Lucide instead of Phosphor.
+- **Selected file keeps the accent** after you click into the editor.
+- **Larger headings**: a wider type scale.
+- **Focus mode while typing**: everything but the paragraph you are on fades back.
 
 ## Tips
 
@@ -50,7 +75,11 @@ scripts/screenshots.sh        # capture the test note in every mode for diffing
   then a generated block that swaps Obsidian's Lucide icons for Phosphor.
 - `scripts/icons.json` and `scripts/build-icons.py`: the icon mapping and the
   generator. Phosphor glyphs used are vendored in `assets/phosphor/`.
-- `test/Bircharoo Test.md`: a kitchen-sink note for checking every element.
+- `test/Bircharoo Test.md`: a kitchen-sink note for checking every element:
+  headings, lists, tasks, tables, images, footnotes, code, callouts, embeds, math.
+- `scripts/screenshots.sh`: captures that note in light and dark, reading and
+  editing, every scrolled page, and a phone-width window, for before-and-after
+  diffs. Needs Obsidian running with the dev vault open.
 - [DESIGN.md](DESIGN.md): the brief and the reasoning behind the choices.
 
 ## Credits and license
