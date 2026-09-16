@@ -4,6 +4,8 @@ A calm Obsidian theme built for writing.
 
 ![Bircharoo in light mode](teaser.png)
 
+![Bircharoo in dark mode](teaser-dark.png)
+
 ![Close-ups: tabs, buttons, properties, and the command palette](details.png)
 
 Bircharoo keeps the page front and center and quiets everything around it. It uses
