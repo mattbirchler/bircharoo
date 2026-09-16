@@ -343,6 +343,49 @@ body {
    5. Writing surface
    --------------------------------------------------------------------------- */
 
+/* Typographic craft. Headings wrap to balanced lines so a two-line heading
+   never leaves one word stranded; paragraphs wrap "pretty" so the last line
+   is never an orphan; opening quotes hang into the margin where the engine
+   supports it (WebKit today, so iPhone and iPad); figures line up in the
+   status bar. None of this changes the text, only where it breaks. */
+.markdown-rendered h1,
+.markdown-rendered h2,
+.markdown-rendered h3,
+.markdown-rendered h4,
+.markdown-rendered h5,
+.markdown-rendered h6,
+.inline-title,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-header {
+  text-wrap: balance;
+}
+.markdown-rendered p,
+.markdown-rendered li,
+.markdown-rendered blockquote,
+.markdown-rendered .callout-content,
+.markdown-source-view.mod-cm6 .cm-line:not(.HyperMD-codeblock):not(.HyperMD-table-row):not(.HyperMD-header) {
+  text-wrap: pretty;
+}
+.markdown-rendered,
+.markdown-source-view.mod-cm6 .cm-content {
+  hanging-punctuation: first allow-end;
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+}
+.status-bar,
+.nav-file-tag,
+.tree-item-flair,
+.search-result-file-matched-text,
+.metadata-input-number,
+.suggestion-hotkey,
+.prompt-instruction-command {
+  font-variant-numeric: tabular-nums;
+}
+/* A blockquote's own opening quote mark should not indent its first line */
+.markdown-rendered blockquote,
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-quote {
+  hanging-punctuation: first;
+}
+
 /* The inline title sits close to the body, separated by weight not distance.
    It behaves like a field: a soft well on hover, a firmer one while editing. */
 .inline-title {
