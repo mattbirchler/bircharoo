@@ -12,8 +12,9 @@
    7. Floating glass: menus, palette, suggestions, modals, popovers, tooltips
    8. Controls: icons, buttons, inputs, toggles, checkboxes
    9. Mobile
-   10. Print and PDF export
-   11. Graph view and canvas
+   10. Graph view and canvas
+   11. Plugins and Bases
+   12. Print and PDF export
 */
 
 /* ---------------------------------------------------------------------------
@@ -2094,7 +2095,7 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
-   11. Graph view and canvas
+   10. Graph view and canvas
    Both draw on the page surface, so they take the same neutrals: gray lines,
    muted nodes, the accent for focus, and controls that share the button
    surface. Canvas cards are small versions of the page card.
@@ -2275,7 +2276,161 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
-   10. Print and PDF export
+   11. Plugins and Bases
+   Only plugins whose UI is large, common, and stable enough to be worth it.
+   Lanes and columns sit on the gray ground, cards are small page cards, and
+   transient popups are glass, so a board looks like it came with the theme.
+   --------------------------------------------------------------------------- */
+
+/* Kanban */
+.kanban-plugin__lane {
+  background-color: var(--background-secondary);
+  border: none;
+  border-radius: var(--radius-l);
+  box-shadow: inset 0 0 0 1px var(--background-modifier-border);
+}
+.kanban-plugin__lane-header-wrapper {
+  border-bottom: none;
+  padding: var(--size-4-3) var(--size-4-3) var(--size-4-1) var(--size-4-2);
+}
+.kanban-plugin__lane-title {
+  font-size: var(--font-ui-small);
+  font-weight: 600;
+  color: var(--text-normal);
+}
+.kanban-plugin__lane-title-count {
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+.kanban-plugin__lane-grip,
+.kanban-plugin__lane-collapse {
+  color: var(--text-faint);
+}
+.kanban-plugin__lane-items {
+  padding: var(--size-4-1) var(--size-4-2);
+  gap: var(--size-4-2);
+}
+.kanban-plugin__item {
+  border: none;
+  border-radius: var(--radius-m);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border), var(--shadow-xs);
+  transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth),
+              opacity 300ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+.kanban-plugin__item:hover {
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border-hover), var(--shadow-xs);
+}
+.kanban-plugin__item-title-wrapper {
+  padding: var(--size-4-2) var(--size-4-3);
+}
+.kanban-plugin__item-title {
+  line-height: 1.4;
+}
+.kanban-plugin__item-tags {
+  padding: 0 var(--size-4-3) var(--size-4-2);
+  border-radius: 0;
+}
+.kanban-plugin__item-tag,
+.kanban-plugin__item-tags .kanban-plugin__item-tag {
+  font-size: var(--font-ui-smaller);
+  font-weight: var(--tag-weight);
+  color: var(--tag-color);
+  background-color: var(--tag-background);
+  box-shadow: inset 0 0 0 1px var(--tag-border-color);
+  border-radius: var(--tag-radius);
+  padding: 0.1em 0.55em;
+  line-height: 1.5;
+}
+.kanban-plugin__item-metadata-date {
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+}
+.kanban-plugin__item-button-wrapper {
+  border: none;
+  padding: var(--size-4-1) var(--size-4-2) var(--size-4-2);
+}
+.kanban-plugin__new-item-button {
+  color: var(--text-faint);
+  border-radius: var(--radius-s);
+  transition: color var(--anim-duration-fast) var(--anim-motion-smooth),
+              background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.kanban-plugin__new-item-button:hover {
+  color: var(--text-normal);
+  background-color: var(--background-modifier-hover);
+}
+.kanban-plugin__item-input-wrapper {
+  border: none;
+  border-radius: var(--radius-m);
+  box-shadow: var(--input-shadow);
+}
+.kanban-plugin__item-input-wrapper:focus-within {
+  box-shadow: var(--input-shadow), 0 0 0 3px hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 30%);
+}
+/* The new-lane form floats: glass like every other transient surface */
+.kanban-plugin__lane-form-wrapper {
+  background-color: var(--bircharoo-glass-strong);
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+  border: 1px solid var(--bircharoo-glass-edge);
+  border-radius: var(--menu-radius);
+  box-shadow: var(--shadow-l), 0 0 0 0.5px rgb(0 0 0 / 12%);
+  animation: bircharoo-drop-in var(--anim-duration-fast) var(--anim-motion-smooth) both;
+}
+.kanban-plugin__search-wrapper {
+  background-color: transparent;
+}
+
+/* Projects */
+.projects--board {
+  padding: var(--size-4-3);
+  column-gap: var(--size-4-3);
+}
+.projects--board--column {
+  background-color: var(--background-secondary);
+  border: none;
+  border-radius: var(--radius-l);
+  box-shadow: inset 0 0 0 1px var(--background-modifier-border);
+  padding: var(--size-4-3) var(--size-4-2) var(--size-4-2);
+}
+.projects--board--card,
+.projects--gallery--card {
+  background-color: var(--background-primary);
+  border: none;
+  border-radius: var(--radius-m);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border), var(--shadow-xs);
+  transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.projects--board--card:hover,
+.projects--gallery--card:hover {
+  border: none;
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border-hover), var(--shadow-xs);
+}
+.projects--board--card {
+  padding: var(--size-4-2) var(--size-4-3);
+}
+.projects--gallery--card__media {
+  background-color: var(--background-primary-alt);
+  border-bottom-color: var(--background-modifier-border);
+  border-top-left-radius: var(--radius-m);
+  border-top-right-radius: var(--radius-m);
+}
+.projects--popover {
+  background-color: var(--bircharoo-glass-strong);
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+  border: 1px solid var(--bircharoo-glass-edge);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-l), 0 0 0 0.5px rgb(0 0 0 / 12%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .kanban-plugin__lane-form-wrapper {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   12. Print and PDF export
    Obsidian renders the note into a .print container and hides the app around
    it. Paper is white, text is black, and everything that only makes sense on
    a screen (glass, cards, buttons, fold handles) is gone. Colors are forced
