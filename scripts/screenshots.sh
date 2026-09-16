@@ -5,7 +5,7 @@
 #
 # Usage: scripts/screenshots.sh [out-dir] [vault-path]
 #   out-dir     where the PNGs go (default: screenshots/)
-#   vault-path  vault to capture in (default: ~/Obsidian/Birchler)
+#   vault-path  vault to capture in (default: ~/Obsidian/Birchler-alt, the dev vault)
 #
 # Needs Obsidian running with the Obsidian CLI available. Installs the theme
 # first, copies test/Bircharoo Test.md (and an image it embeds) to the vault
@@ -13,7 +13,7 @@
 # they were when it's done.
 set -euo pipefail
 OUT="${1:-screenshots}"
-VAULT_PATH="${2:-$HOME/Obsidian/Birchler}"
+VAULT_PATH="${2:-$HOME/Obsidian/Birchler-alt}"
 VAULT_NAME="$(basename "$VAULT_PATH")"
 DIR="$(cd "$(dirname "$0")/.." && pwd)"
 NOTE="Bircharoo Test.md"

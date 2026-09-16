@@ -40,9 +40,10 @@ Symlinked theme folders are ignored by Obsidian, so use the install script, whic
 copies the files into a vault and reloads the theme through the Obsidian CLI:
 
 ```sh
-scripts/install.sh            # installs into ~/Obsidian/Birchler
+scripts/install.sh            # installs into ~/Obsidian/Birchler-alt (the dev vault)
 scripts/install.sh /path/to/vault
 scripts/watch.sh              # reinstall on every save
+scripts/screenshots.sh        # capture the test note in every mode for diffing
 ```
 
 - `theme.css`: the whole theme. Variables first, then component rules, then mobile,
