@@ -13,6 +13,7 @@
    8. Controls: icons, buttons, inputs, toggles, checkboxes
    9. Mobile
    10. Print and PDF export
+   11. Graph view and canvas
 */
 
 /* ---------------------------------------------------------------------------
@@ -2090,6 +2091,187 @@ body {
   background-color: var(--bircharoo-glass-strong);
   backdrop-filter: var(--bircharoo-blur);
   -webkit-backdrop-filter: var(--bircharoo-blur);
+}
+
+/* ---------------------------------------------------------------------------
+   11. Graph view and canvas
+   Both draw on the page surface, so they take the same neutrals: gray lines,
+   muted nodes, the accent for focus, and controls that share the button
+   surface. Canvas cards are small versions of the page card.
+   --------------------------------------------------------------------------- */
+body {
+  --graph-text: var(--text-muted);
+  --graph-node: var(--text-muted);
+  --graph-node-unresolved: var(--text-faint);
+  --graph-node-focused: var(--text-accent);
+  --graph-node-tag: var(--color-green);
+  --graph-node-attachment: var(--color-orange);
+  --canvas-background: var(--background-primary);
+  --canvas-card-label-color: var(--text-faint);
+  --canvas-controls-radius: var(--radius-m);
+}
+.theme-light {
+  --graph-line: #d1d1d6;
+  --canvas-dot-pattern: #d8d8dd;
+}
+.theme-dark {
+  --graph-line: #3a3a3f;
+  --canvas-dot-pattern: #35353a;
+}
+/* Graph controls: the open panel is a raised card, the closed one a button */
+.graph-controls:not(.is-close) {
+  background-color: var(--background-primary);
+  border: none;
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border), var(--shadow-s);
+  border-radius: var(--radius-l);
+}
+.graph-controls.is-close {
+  background-color: var(--bircharoo-button-bg);
+  border: none;
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border);
+  border-radius: var(--radius-m);
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.workspace-split:not(.mod-root) .graph-controls.is-close {
+  background-color: var(--bircharoo-button-bg);
+}
+.graph-controls.is-close:hover {
+  background-color: var(--bircharoo-button-bg-hover);
+}
+.graph-control-section {
+  border-bottom-color: var(--background-modifier-border);
+}
+.graph-control-section-header {
+  font-weight: 600;
+  font-size: var(--font-ui-smaller);
+  color: var(--text-muted);
+  letter-spacing: 0.01em;
+}
+/* Canvas cards */
+.canvas-node-container {
+  border-radius: var(--radius-l);
+  border-color: var(--background-modifier-border-hover);
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth),
+              border-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.canvas-node.is-themed .canvas-node-container {
+  border-color: color-mix(in oklch, var(--canvas-color) 60%, transparent);
+  box-shadow: var(--shadow-xs);
+}
+.canvas-node.is-selected .canvas-node-container,
+.canvas-node.is-focused .canvas-node-container {
+  border-color: var(--interactive-accent);
+  box-shadow: var(--shadow-s), 0 0 0 2px hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 35%);
+}
+.canvas-node.is-selected.is-themed .canvas-node-container,
+.canvas-node.is-focused.is-themed .canvas-node-container {
+  border-color: var(--canvas-color);
+  box-shadow: var(--shadow-s), 0 0 0 2px color-mix(in oklch, var(--canvas-color) 35%, transparent);
+}
+.canvas-node-group .canvas-node-container {
+  border-radius: var(--radius-xl);
+  border-style: solid;
+  box-shadow: none;
+}
+.canvas-node-label,
+.canvas-group-label {
+  font-size: var(--font-ui-small);
+  font-weight: 500;
+  padding: var(--size-2-1) var(--size-2-3);
+  border-radius: var(--radius-s);
+}
+.canvas-node-label {
+  color: var(--text-faint);
+}
+.canvas-group-label {
+  color: var(--text-muted);
+}
+.canvas-path-label {
+  font-size: calc(var(--font-ui-small) * var(--zoom-multiplier));
+  background-color: var(--background-primary);
+  border-radius: var(--radius-s);
+  box-shadow: 0 0 0 1px var(--background-modifier-border-hover);
+  color: var(--text-muted);
+}
+/* Canvas note contents use the writing surface's margins at a smaller scale */
+.canvas-node-content.markdown-embed .markdown-preview-view {
+  --file-margins: var(--size-4-4) var(--size-4-5);
+}
+/* Canvas controls (zoom, pointer) and the card menu share the button surface */
+.canvas-control-group {
+  background-color: var(--bircharoo-button-bg);
+  border: none;
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border), var(--shadow-xs);
+  border-radius: var(--radius-m);
+}
+.canvas-control-item {
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--background-modifier-border);
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+@media (hover: hover) {
+  .canvas-control-item:hover {
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+  }
+}
+.canvas-card-menu {
+  background-color: var(--bircharoo-button-bg);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border), var(--shadow-s);
+  border-radius: var(--radius-l);
+  padding: var(--size-2-1);
+  gap: var(--size-2-1);
+}
+.canvas-card-menu .canvas-card-menu-divider {
+  background-color: var(--background-modifier-border);
+  margin: var(--size-2-2) 0;
+}
+.canvas-card-menu .canvas-card-menu-button {
+  border-radius: var(--radius-m);
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+@media (hover: hover) {
+  .canvas-card-menu .canvas-card-menu-button:hover {
+    color: var(--text-normal);
+    background-color: var(--background-modifier-hover);
+  }
+}
+/* The floating toolbar above a selected card is a transient surface: glass */
+.canvas-menu {
+  background-color: var(--bircharoo-glass);
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+  border: 1px solid var(--bircharoo-glass-edge);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-s), 0 0 0 0.5px rgb(0 0 0 / 10%);
+  padding: var(--size-2-2);
+  gap: var(--size-2-1);
+  animation: bircharoo-drop-in var(--anim-duration-fast) var(--anim-motion-smooth) both;
+}
+.canvas-menu .clickable-icon {
+  border-radius: var(--radius-s);
+}
+.canvas-submenu {
+  background-color: var(--bircharoo-glass-strong);
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+  border: 1px solid var(--bircharoo-glass-edge);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-s), 0 0 0 0.5px rgb(0 0 0 / 10%);
+}
+.canvas-color-picker-item {
+  transition: transform var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.canvas-color-picker-item:hover {
+  transform: scale(1.12);
+}
+@media (prefers-reduced-motion: reduce) {
+  .canvas-menu {
+    animation: none;
+  }
 }
 
 /* ---------------------------------------------------------------------------
