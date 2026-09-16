@@ -2341,7 +2341,8 @@ body {
   padding: 0.1em 0.55em;
   line-height: 1.5;
 }
-.kanban-plugin__item-metadata-date {
+.kanban-plugin__item-metadata-date-wrapper,
+.kanban-plugin__item-metadata-date-relative {
   font-size: var(--font-ui-smaller);
   color: var(--text-muted);
 }
@@ -2427,6 +2428,296 @@ body {
   .kanban-plugin__lane-form-wrapper {
     animation: none;
   }
+}
+
+/* Bases (core): the table view follows the note tables above, cards are
+   small page cards, and the toolbar's buttons stay quiet until hovered. */
+body {
+  --bases-table-container-border-width: 1px;
+  --bases-table-container-border-radius: var(--radius-m);
+  --bases-table-border-color: var(--background-modifier-border);
+  --bases-table-column-border-width: 0px;
+  --bases-table-header-weight: 600;
+  --bases-table-header-color: var(--text-muted);
+  --bases-table-header-background: var(--background-primary);
+  --bases-table-header-background-hover: var(--background-primary-alt);
+  --bases-table-row-background-hover: var(--background-primary-alt);
+  --bases-table-group-background: var(--background-primary);
+  --bases-table-cell-radius-active: 4px;
+  --bases-table-cell-radius-focus: 4px;
+  --bases-table-cell-shadow-active: 0 0 0 2px hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 30%);
+  --bases-table-cell-shadow-focus: 0 0 0 2px var(--interactive-accent);
+  --bases-cards-radius: var(--radius-l);
+  --bases-cards-shadow: 0 0 0 1px var(--bircharoo-button-border), var(--shadow-xs);
+  --bases-cards-shadow-hover: 0 0 0 1px var(--bircharoo-button-border-hover), var(--shadow-s);
+  --bases-cards-cover-background: var(--background-primary-alt);
+  --bases-group-heading-property-color: var(--text-faint);
+  --bases-group-heading-value-weight: 600;
+  --bases-embed-border-width: 1px;
+  --bases-embed-border-color: var(--background-modifier-border);
+  --bases-embed-border-radius: var(--embed-radius);
+}
+.bases-table-header-name {
+  font-size: var(--font-ui-smaller);
+  letter-spacing: 0.01em;
+}
+.bases-cards-item {
+  transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.bases-toolbar .text-icon-button {
+  border-radius: var(--radius-s);
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.bases-toolbar .bases-toolbar-result-count {
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+.bases-td .metadata-input-number,
+.bases-table-summary-cell {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Dataview: query tables match note tables; inline fields are a two-part
+   label in the interface font instead of monospaced blocks. */
+.table-view-table > thead > tr > th {
+  font-size: var(--table-header-size);
+  font-weight: var(--table-header-weight);
+  color: var(--table-header-color);
+  letter-spacing: 0.01em;
+  border-bottom: 1px solid var(--table-header-border-color);
+  padding: var(--size-4-2) var(--size-4-3);
+}
+.table-view-table > tbody > tr > td {
+  border-bottom: 1px solid var(--table-border-color);
+  padding: var(--size-4-2) var(--size-4-3);
+  font-size: var(--table-text-size);
+}
+.table-view-table > thead > tr > th:first-child,
+.table-view-table > tbody > tr > td:first-child {
+  padding-inline-start: var(--size-4-1);
+}
+.table-view-table > tbody > tr:hover {
+  background-color: var(--table-row-background-hover);
+}
+.dataview.inline-field-key,
+.dataview.inline-field-value,
+.dataview.inline-field-standalone-value {
+  font-family: var(--font-interface);
+  font-size: 0.85em;
+  padding: 0.1em 0.55em;
+  background-color: var(--background-primary-alt);
+  box-shadow: inset 0 0 0 1px var(--background-modifier-border);
+}
+.dataview.inline-field-key {
+  color: var(--text-muted);
+  border-radius: 4px 0 0 4px;
+}
+.dataview.inline-field-value {
+  color: var(--text-normal);
+  border-radius: 0 4px 4px 0;
+  margin-inline-start: -1px;
+}
+.dataview.inline-field-standalone-value {
+  color: var(--text-normal);
+  border-radius: 4px;
+}
+.dataview.task-list-item:hover,
+.dataview.task-list-basic-item:hover {
+  background-color: var(--background-modifier-hover);
+  box-shadow: -40px 0 0 var(--background-modifier-hover);
+}
+div.dataview-error-box {
+  border: 1px dashed var(--background-modifier-border-hover);
+  border-radius: var(--radius-m);
+}
+
+/* Tasks: dates, priorities, and recurrence are quiet pills after the text,
+   red when overdue and the accent when due today. */
+.task-list-item .task-due,
+.task-list-item .task-scheduled,
+.task-list-item .task-start,
+.task-list-item .task-created,
+.task-list-item .task-done,
+.task-list-item .task-cancelled,
+.task-list-item .task-recurring,
+.task-list-item .task-priority,
+.task-list-item .task-id,
+.task-list-item .task-dependsOn,
+.task-list-item .task-onCompletion {
+  display: inline-block;
+  font-size: 0.8em;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text-muted);
+  background-color: var(--background-modifier-hover);
+  border-radius: 2em;
+  padding: 0 0.6em;
+  margin-inline-start: 0.35em;
+  white-space: nowrap;
+  vertical-align: 0.08em;
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.task-list-item[data-task-due^="past"] .task-due {
+  color: var(--color-red);
+  background-color: color-mix(in oklch, var(--color-red) 12%, transparent);
+}
+.task-list-item[data-task-due="today"] .task-due {
+  color: var(--text-accent);
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 12%);
+}
+.task-list-item[data-task-priority="highest"] .task-priority,
+.task-list-item[data-task-priority="high"] .task-priority {
+  color: var(--color-orange);
+  background-color: color-mix(in oklch, var(--color-orange) 12%, transparent);
+}
+.task-list-item.is-checked .task-due,
+.task-list-item.is-checked .task-scheduled,
+.task-list-item.is-checked .task-start,
+.task-list-item.is-checked .task-priority,
+.task-list-item.is-checked .task-recurring {
+  color: var(--text-faint);
+  background-color: transparent;
+  box-shadow: inset 0 0 0 1px var(--background-modifier-border);
+}
+.tasks-edit,
+.tasks-postpone {
+  opacity: 0;
+  transition: opacity var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.task-list-item:hover .tasks-edit,
+.task-list-item:hover .tasks-postpone,
+.tasks-edit:focus-visible,
+.tasks-postpone:focus-visible {
+  opacity: 1;
+}
+.tasks-group-count,
+.tasks-count {
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+.tasks-columns-column {
+  background-color: var(--background-secondary);
+  border: none;
+  border-radius: var(--radius-l);
+  box-shadow: inset 0 0 0 1px var(--background-modifier-border);
+}
+.tasks-columns-column-card {
+  border: none;
+  border-radius: var(--radius-m);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border), var(--shadow-xs);
+}
+
+/* Calendar: the sidebar month takes the neutrals; today is the accent and
+   the dots are muted so the grid reads as a calendar, not a heat map. */
+.workspace-leaf-content[data-type="calendar"] {
+  --color-background-day: transparent;
+  --color-background-weeknum: transparent;
+  --color-background-weekend: transparent;
+  --color-background-heading: transparent;
+  --color-dot: var(--text-faint);
+  --color-arrow: var(--text-faint);
+  --color-button: var(--text-muted);
+  --color-text-title: var(--text-normal);
+  --color-text-heading: var(--text-faint);
+  --color-text-day: var(--text-normal);
+  --color-text-today: var(--text-accent);
+  --color-text-weeknum: var(--text-faint);
+}
+.workspace-leaf-content[data-type="calendar"] .title {
+  font-size: var(--font-ui-medium);
+  font-weight: 600;
+}
+.workspace-leaf-content[data-type="calendar"] .year {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.workspace-leaf-content[data-type="calendar"] th {
+  font-size: var(--font-ui-smaller);
+  font-weight: 500;
+  color: var(--text-faint);
+}
+.workspace-leaf-content[data-type="calendar"] .day,
+.workspace-leaf-content[data-type="calendar"] .week-num {
+  border-radius: var(--radius-s);
+  font-size: var(--font-ui-small);
+  font-variant-numeric: tabular-nums;
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.workspace-leaf-content[data-type="calendar"] .day.today {
+  font-weight: 600;
+}
+.workspace-leaf-content[data-type="calendar"] .arrow {
+  border-radius: var(--radius-s);
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.workspace-leaf-content[data-type="calendar"] .arrow:hover {
+  background-color: var(--background-modifier-hover);
+}
+.workspace-leaf-content[data-type="calendar"] .arrow:hover svg {
+  color: var(--text-normal);
+}
+
+/* Omnisearch: the results modal follows the command palette */
+.omnisearch-modal .omnisearch-result {
+  border-radius: 6px;
+  padding: var(--size-4-2) var(--size-4-3);
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.omnisearch-modal .omnisearch-result__folder-path,
+.omnisearch-modal .omnisearch-result__extension,
+.omnisearch-modal .omnisearch-result__counter {
+  color: var(--text-faint);
+  font-size: var(--font-ui-smaller);
+}
+.omnisearch-modal .omnisearch-result__counter {
+  font-variant-numeric: tabular-nums;
+}
+.omnisearch-modal .omnisearch-result__body {
+  color: var(--text-muted);
+}
+.omnisearch-highlight,
+.omnisearch-default-highlight {
+  color: inherit;
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 18%);
+  border-radius: 3px;
+  padding: 0 1px;
+}
+.omnisearch-modal .suggestion-item.is-selected,
+.omnisearch-modal .omnisearch-result.is-selected {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+.omnisearch-modal .is-selected .omnisearch-result__title,
+.omnisearch-modal .is-selected .omnisearch-result__body,
+.omnisearch-modal .is-selected .omnisearch-result__folder-path,
+.omnisearch-modal .is-selected .omnisearch-result__extension,
+.omnisearch-modal .is-selected .omnisearch-result__counter,
+.omnisearch-modal .is-selected .omnisearch-result__icon {
+  color: var(--text-on-accent);
+}
+.omnisearch-modal .is-selected .omnisearch-highlight,
+.omnisearch-modal .is-selected .omnisearch-default-highlight {
+  background-color: rgb(255 255 255 / 22%);
+}
+
+/* Hover Editor: its floating editor is the same glass as the hover preview */
+.popover.hover-editor {
+  background-color: var(--bircharoo-glass-strong);
+  backdrop-filter: var(--bircharoo-blur);
+  -webkit-backdrop-filter: var(--bircharoo-blur);
+  border: 1px solid var(--bircharoo-glass-edge);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-l), 0 0 0 0.5px rgb(0 0 0 / 12%);
+  overflow: hidden;
+}
+.popover.hover-editor .view-header {
+  background-color: transparent;
+}
+.popover.hover-editor .workspace-leaf-content {
+  background-color: transparent;
 }
 
 /* ---------------------------------------------------------------------------
