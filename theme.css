@@ -1417,6 +1417,64 @@ body:not(.is-phone) .workspace-leaf.mod-active .tree-item-self.has-focus {
   margin: 0;
 }
 
+/* Inactive window: like a native Mac app, the chrome goes quiet when another
+   window has focus. Labels and icons drop a step, the accent leaves the
+   selected file and the active tab, and the page itself is untouched. */
+body:not(.is-mobile):not(.is-focused) {
+  --nav-item-color: var(--text-faint);
+  --nav-item-color-active: var(--text-muted);
+  --nav-item-background-active: var(--background-modifier-hover);
+  --icon-color: var(--text-faint);
+  --tab-text-color: var(--text-faint);
+  --tab-text-color-active: var(--text-muted);
+  --status-bar-text-color: var(--text-faint);
+}
+body:not(.is-mobile):not(.is-focused) .nav-folder-title,
+body:not(.is-mobile):not(.is-focused) .view-header-title,
+body:not(.is-mobile):not(.is-focused) .workspace-leaf.mod-active .view-header-title,
+body:not(.is-mobile):not(.is-focused) .mod-root .workspace-tab-header.is-active .workspace-tab-header-inner-title,
+body:not(.is-mobile):not(.is-focused) .status-bar,
+body:not(.is-mobile):not(.is-focused) .workspace-drawer-vault-name {
+  color: var(--text-muted);
+}
+body:not(.is-mobile):not(.is-focused) .workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active,
+body:not(.is-mobile):not(.is-focused) .workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active:hover {
+  background-color: var(--background-modifier-active-hover);
+  color: var(--text-normal);
+}
+body:not(.is-mobile):not(.is-focused) .workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active .collapse-icon,
+body:not(.is-mobile):not(.is-focused) .workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active .nav-file-tag,
+body:not(.is-mobile):not(.is-focused) .workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active .tree-item-icon,
+body:not(.is-mobile):not(.is-focused) .workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active .iconize-icon,
+body:not(.is-mobile):not(.is-focused) .workspace-leaf.mod-active .nav-files-container .tree-item-self.is-active .iconize-icon svg {
+  color: var(--text-muted);
+}
+body:not(.is-mobile):not(.is-focused) .mod-root .workspace-tab-header.is-active .workspace-tab-header-inner {
+  background-color: var(--background-modifier-hover);
+  box-shadow: none;
+}
+body:not(.is-mobile):not(.is-focused) .side-dock-ribbon-action,
+body:not(.is-mobile):not(.is-focused) .workspace-tab-header-inner-icon {
+  opacity: 0.7;
+}
+.side-dock-ribbon-action,
+.workspace-tab-header-inner-icon,
+.view-header-title,
+.workspace-drawer-vault-name,
+.status-bar {
+  transition: color var(--anim-duration-moderate) var(--anim-motion-smooth),
+              opacity var(--anim-duration-moderate) var(--anim-motion-smooth);
+}
+
+/* Popout windows under the translucent window setting: Obsidian clears the
+   title bar so the main window's vibrancy can show through, but a popout
+   has no vibrancy behind it and the cleared bar reads as a dark strip in
+   light mode. Paint it with the theme's title bar color there. Reported by
+   ymolodtsov in pull request 6. */
+.is-popout-window.is-translucent:not(.is-fullscreen) .titlebar {
+  background-color: var(--titlebar-background);
+}
+
 /* Ribbon: icons only, no border. The ::before strip stays because it paints
    the title bar behind the macOS traffic lights; just drop its bottom rule. */
 .side-dock-ribbon,
