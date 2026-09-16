@@ -2655,8 +2655,11 @@ div.dataview-error-box {
 }
 
 /* Calendar: the sidebar month takes the neutrals; today is the accent and
-   the dots are muted so the grid reads as a calendar, not a heat map. */
-.workspace-leaf-content[data-type="calendar"] {
+   the dots are muted so the grid reads as a calendar, not a heat map. The
+   plugin's own rules carry two hashed classes, so the container id is used
+   to outrank them. */
+.workspace-leaf-content[data-type="calendar"],
+#calendar-container {
   --color-background-day: transparent;
   --color-background-weeknum: transparent;
   --color-background-weekend: transparent;
@@ -2670,39 +2673,42 @@ div.dataview-error-box {
   --color-text-today: var(--text-accent);
   --color-text-weeknum: var(--text-faint);
 }
-.workspace-leaf-content[data-type="calendar"] .title {
+#calendar-container .title {
   font-size: var(--font-ui-medium);
   font-weight: 600;
 }
-.workspace-leaf-content[data-type="calendar"] .year {
+#calendar-container .month {
+  font-weight: 600;
+}
+#calendar-container .year {
   color: var(--text-muted);
   font-weight: 500;
 }
-.workspace-leaf-content[data-type="calendar"] th {
+#calendar-container th {
   font-size: var(--font-ui-smaller);
   font-weight: 500;
   color: var(--text-faint);
 }
-.workspace-leaf-content[data-type="calendar"] .day,
-.workspace-leaf-content[data-type="calendar"] .week-num {
+#calendar-container .day,
+#calendar-container .week-num {
   border-radius: var(--radius-s);
   font-size: var(--font-ui-small);
   font-variant-numeric: tabular-nums;
   transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
               color var(--anim-duration-fast) var(--anim-motion-smooth);
 }
-.workspace-leaf-content[data-type="calendar"] .day.today {
+#calendar-container .day.today {
   font-weight: 600;
 }
-.workspace-leaf-content[data-type="calendar"] .arrow {
+#calendar-container .arrow {
   border-radius: var(--radius-s);
   transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
               color var(--anim-duration-fast) var(--anim-motion-smooth);
 }
-.workspace-leaf-content[data-type="calendar"] .arrow:hover {
+#calendar-container .arrow:hover {
   background-color: var(--background-modifier-hover);
 }
-.workspace-leaf-content[data-type="calendar"] .arrow:hover svg {
+#calendar-container .arrow:hover svg {
   color: var(--text-normal);
 }
 
