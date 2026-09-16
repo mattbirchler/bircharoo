@@ -43,15 +43,18 @@ for lucide, phos in sorted(mapping.items()):
 
 # One rule per unique glyph; several Lucide names can share it. Unprefixed
 # mask-image is enough: Obsidian 1.13 ships Chromium 120+ and iOS 15.4+.
+# Every rule is gated on the Style Settings toggle that keeps Lucide.
+GATE = "body:not(.bircharoo-lucide-icons) "
 for uri, names in by_glyph.items():
-    sel = ",".join(f"svg.svg-icon.lucide-{n}" for n in names)
-    kids = ",".join(f"svg.svg-icon.lucide-{n}>*" for n in names)
+    sel = ",".join(f"{GATE}svg.svg-icon.lucide-{n}" for n in names)
+    kids = ",".join(f"{GATE}svg.svg-icon.lucide-{n}>*" for n in names)
     rules.append(f'{sel}{{background-color:currentColor;mask-image:url("{uri}")}}{kids}{{display:none}}')
 
 block = "\n".join([
     START,
     "/* Each Obsidian icon keeps its <svg> box; the Lucide paths are hidden and a",
-    "   Phosphor glyph is masked over it in the current color. */",
+    "   Phosphor glyph is masked over it in the current color. Turning on the",
+    "   \"Use Obsidian's icons\" toggle in Style Settings switches all of this off. */",
     "svg.svg-icon[class*=\"lucide-\"] {",
     "  mask-size: contain;",
     "  mask-position: center;",
