@@ -672,6 +672,127 @@ body {
   border-top: var(--hr-thickness) solid var(--hr-color);
 }
 
+/* Editing view details. Formatting characters, list markers, fold handles,
+   comments, and block ids are all scaffolding: they stay legible but fade
+   back so the words carry the line. */
+body {
+  --list-marker-color: var(--text-faint);
+  --list-marker-color-hover: var(--text-muted);
+  --list-marker-color-collapsed: var(--text-accent);
+  --list-bullet-size: 0.28em;
+  --indentation-guide-color: var(--background-modifier-border);
+  --indentation-guide-color-active: var(--background-modifier-border-hover);
+  --code-comment: var(--text-faint);
+}
+.cm-s-obsidian span.cm-formatting-strong,
+.cm-s-obsidian span.cm-formatting-em,
+.cm-s-obsidian span.cm-formatting-strikethrough,
+.cm-s-obsidian span.cm-formatting-highlight,
+.cm-s-obsidian span.cm-formatting-code,
+.cm-s-obsidian span.cm-formatting-math,
+.cm-s-obsidian span.cm-formatting-task,
+.cm-s-obsidian span.cm-formatting-inline-footnote,
+.cm-s-obsidian span.cm-escape,
+.cm-s-obsidian span.cm-blockid,
+.cm-s-obsidian span.cm-hmd-barelink.cm-blockid {
+  color: var(--text-faint);
+}
+.cm-s-obsidian span.cm-formatting-highlight {
+  background-color: transparent;
+}
+/* Comments (%% %%) are notes to self: quiet, never styled as code */
+.cm-s-obsidian span.cm-comment:not(.cm-formatting):not(.HyperMD-codeblock *) {
+  color: var(--text-faint);
+  font-family: inherit;
+}
+/* Strikethrough: muted text with a thin line, in both views */
+.markdown-rendered del,
+.markdown-rendered s,
+.cm-s-obsidian span.cm-strikethrough {
+  color: var(--text-muted);
+  text-decoration-thickness: 1px;
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  text-decoration-color: var(--text-faint);
+}
+/* Highlights: a soft rounded band rather than a hard box */
+.markdown-rendered mark,
+.cm-s-obsidian span.cm-highlight {
+  padding: 0.05em 0.2em;
+  margin: 0 -0.05em;
+  border-radius: 4px;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+/* Fold handles: faint chevrons, the accent when something is folded */
+.markdown-rendered .heading-collapse-indicator,
+.markdown-rendered .list-collapse-indicator,
+.markdown-source-view.mod-cm6 .cm-fold-indicator .collapse-indicator {
+  color: var(--text-faint);
+  transition: color var(--anim-duration-fast) var(--anim-motion-smooth),
+              opacity var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.markdown-rendered .heading-collapse-indicator:hover,
+.markdown-rendered .list-collapse-indicator:hover,
+.markdown-source-view.mod-cm6 .cm-fold-indicator .collapse-indicator:hover {
+  color: var(--text-muted);
+}
+.markdown-rendered .is-collapsed .heading-collapse-indicator,
+.markdown-rendered .is-collapsed > .list-collapse-indicator,
+.markdown-source-view.mod-cm6 .cm-fold-indicator.is-collapsed .collapse-indicator {
+  color: var(--text-accent);
+}
+/* The "..." shown where a heading or list is folded reads as a small pill */
+.markdown-source-view.mod-cm6 .cm-foldPlaceholder {
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  font-weight: 500;
+  line-height: 1;
+  padding: 2px 7px 3px;
+  border-radius: 2em;
+  background-color: var(--background-modifier-hover);
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.markdown-source-view.mod-cm6 .cm-foldPlaceholder:hover {
+  color: var(--text-normal);
+  background-color: var(--background-modifier-active-hover);
+}
+/* Frontmatter in source mode: monospaced, small, and gray, like a header */
+.cm-s-obsidian .cm-hmd-frontmatter {
+  color: var(--text-muted);
+  font-size: 0.85em;
+}
+.cm-s-obsidian .cm-hmd-frontmatter.cm-def,
+.cm-s-obsidian .cm-hmd-frontmatter.cm-atom {
+  color: var(--text-faint);
+}
+/* Search matches inside the editor use the same accent tint as the sidebar */
+.cm-s-obsidian span.obsidian-search-match-highlight {
+  box-shadow: none;
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 22%);
+  border-radius: 3px;
+}
+.cm-s-obsidian .cm-searchMatch,
+.cm-s-obsidian .cm-selectionMatch {
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 14%);
+  border-radius: 3px;
+}
+.cm-s-obsidian .cm-searchMatch.cm-searchMatch-selected {
+  background-color: hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 32%);
+}
+/* Ordered list numbers align on the period so lists of ten or more line up */
+.markdown-rendered ol > li::marker,
+.cm-s-obsidian .cm-formatting-list-ol {
+  font-variant-numeric: tabular-nums;
+}
+/* Blockquotes in the editor match reading view: muted text, accent-free bar */
+.markdown-source-view.mod-cm6 .cm-line.HyperMD-quote {
+  color: var(--blockquote-color);
+}
+.cm-s-obsidian span.cm-formatting-quote {
+  color: var(--text-faint);
+}
+
 /* Caret takes the accent; selection is a soft accent tint everywhere */
 body {
   --caret-color: var(--text-accent);
