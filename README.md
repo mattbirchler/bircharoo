@@ -17,7 +17,7 @@ body text, so a note never shouts.
   tags in your accent color, headings that stay neutral.
 - **Quiet chrome.** The note sits as a rounded card inside a soft gray frame.
   Tabs, buttons, dropdowns, and the file explorer are restyled to match it, and the
-  selected file takes your accent color while the sidebar has focus.
+  selected file keeps your accent color when focus moves to the editor.
 - **Glass where it counts.** Menus, the command palette, suggestions, modals,
   hover previews, and notices are frosted. Chrome that never moves stays solid.
 - **Tactile controls.** Buttons press, icons respond, toggles ease, checkboxes
