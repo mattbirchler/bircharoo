@@ -308,10 +308,31 @@ body {
   --code-border-width: 1px;
   --code-border-color: var(--background-modifier-border);
 
-  /* Metadata (properties) */
+  /* Metadata (properties): a quiet block under the title, closed by a hairline */
   --metadata-label-text-color: var(--text-muted);
+  --metadata-label-text-color-hover: var(--text-normal);
+  --metadata-label-font-size: var(--font-ui-small);
+  --metadata-input-font-size: var(--font-ui-small);
+  --metadata-label-width: 8.5em;
+  --metadata-gap: 2px;
+  --metadata-padding: var(--size-4-2) 0 var(--size-4-4);
+  --metadata-border-width: 0 0 1px 0;
+  --metadata-border-color: var(--background-modifier-border);
   --metadata-property-radius: 6px;
-  --metadata-property-background-active: var(--background-modifier-hover);
+  --metadata-property-radius-hover: 6px;
+  --metadata-property-radius-focus: 6px;
+  --metadata-property-background-hover: var(--background-modifier-hover);
+  --metadata-property-background-active: var(--background-modifier-active-hover);
+  --metadata-property-box-shadow-hover: none;
+  --metadata-property-box-shadow-focus: 0 0 0 2px hsl(var(--accent-h) var(--accent-s) var(--accent-l) / 30%);
+  --metadata-label-background-active: transparent;
+  --metadata-input-background-active: transparent;
+  --pill-radius: 2em;
+  --pill-padding-x: 0.6em;
+  --pill-padding-y: 0.15em;
+  --pill-border-color: var(--background-modifier-border-hover);
+  --pill-border-color-hover: var(--background-modifier-border-focus);
+  --pill-color-remove-hover: var(--text-normal);
 
   /* Checkboxes */
   --checkbox-border-color: var(--text-faint);
@@ -791,6 +812,159 @@ body {
 }
 .cm-s-obsidian span.cm-formatting-quote {
   color: var(--text-faint);
+}
+
+/* Properties: the heading is a small label, icons are faint, and the whole
+   block is closed off from the prose by a hairline set through the variables
+   above. The add button behaves like the other quiet text buttons. */
+.metadata-container {
+  margin-bottom: var(--size-4-6);
+}
+.metadata-properties-heading {
+  padding-inline-start: 0;
+}
+.metadata-properties-title {
+  font-size: var(--font-ui-smaller);
+  font-weight: 600;
+  color: var(--text-faint);
+  letter-spacing: 0.02em;
+}
+.metadata-property-icon {
+  color: var(--text-faint);
+  transition: color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.metadata-property:hover .metadata-property-icon,
+.metadata-property:focus-within .metadata-property-icon {
+  color: var(--text-muted);
+}
+.metadata-property {
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              box-shadow var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.metadata-property-key-input,
+.metadata-input-longtext,
+.metadata-input-text,
+.metadata-input-number {
+  font-family: var(--font-interface);
+}
+.metadata-container .metadata-add-button {
+  margin-top: var(--size-4-2);
+  padding: var(--size-2-1) var(--size-2-3);
+  border-radius: var(--radius-s);
+  color: var(--text-faint);
+  transition: color var(--anim-duration-fast) var(--anim-motion-smooth),
+              background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.metadata-container .metadata-add-button:hover {
+  color: var(--text-normal);
+  background-color: var(--background-modifier-hover);
+}
+/* List values are pills; the remove mark only appears on hover */
+.multi-select-pill {
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              border-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+@media (hover: hover) {
+  .multi-select-pill:not(:hover):not(:focus-within) .multi-select-pill-remove-button {
+    opacity: 0;
+  }
+  .multi-select-pill-remove-button {
+    transition: opacity var(--anim-duration-fast) var(--anim-motion-smooth);
+  }
+}
+/* Checkbox and date values line up with text values */
+.metadata-input-checkbox {
+  align-self: center;
+}
+.metadata-property-warning-icon {
+  color: var(--color-orange);
+}
+
+/* Embeds and transclusions: a soft inset card, not a quoted block. The hover
+   preview and canvas cards use their own embed surface and are left alone. */
+body {
+  --embed-border-start: none;
+  --embed-padding: var(--size-4-3) var(--size-4-5) var(--size-4-4);
+  --embed-background: var(--background-primary-alt);
+  --embed-block-shadow-hover: 0 0 0 1px var(--background-modifier-border-hover);
+  --embed-action-color: var(--text-muted);
+  --embed-actions-background: var(--bircharoo-button-bg);
+  --embed-actions-shadow: 0 0 0 1px var(--bircharoo-button-border), var(--shadow-xs);
+}
+.markdown-rendered .internal-embed.markdown-embed,
+.markdown-source-view.mod-cm6 .internal-embed.markdown-embed {
+  border-radius: var(--embed-radius);
+  box-shadow: inset 0 0 0 1px var(--background-modifier-border);
+  margin: var(--size-4-2) 0;
+  overflow: hidden;
+}
+/* Embedded content starts flush with the top of the card */
+.internal-embed.markdown-embed .markdown-embed-content > .markdown-preview-view > .markdown-preview-sizer > :first-child,
+.internal-embed.markdown-embed .markdown-embed-content .markdown-preview-view h1:first-child,
+.internal-embed.markdown-embed .markdown-embed-content .markdown-preview-view h2:first-child,
+.internal-embed.markdown-embed .markdown-embed-content .markdown-preview-view h3:first-child {
+  margin-top: 0;
+}
+.internal-embed.markdown-embed .markdown-embed-content .markdown-preview-view {
+  --file-margins: 0;
+}
+/* The open-link button becomes a small key cap, visible on hover */
+.markdown-embed-link,
+.file-embed-link {
+  top: var(--size-4-2);
+  inset-inline-end: var(--size-4-2);
+  padding: var(--size-2-1);
+  border-radius: var(--radius-s);
+  color: var(--text-muted);
+  background-color: var(--bircharoo-button-bg);
+  box-shadow: 0 0 0 1px var(--bircharoo-button-border);
+  opacity: 0;
+  transition: opacity var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth),
+              background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.markdown-embed:hover .markdown-embed-link,
+.file-embed:hover .file-embed-link,
+.markdown-embed-link:focus-visible,
+.file-embed-link:focus-visible {
+  opacity: 1;
+}
+.markdown-embed-link:hover,
+.file-embed-link:hover {
+  color: var(--text-normal);
+  background-color: var(--bircharoo-button-bg-hover);
+}
+/* Attachments that are not images (PDFs, audio, unknown files) */
+.file-embed {
+  border-radius: var(--embed-radius);
+  background-color: var(--background-primary-alt);
+  box-shadow: inset 0 0 0 1px var(--background-modifier-border);
+}
+.pdf-embed {
+  border-radius: var(--embed-radius);
+  overflow: hidden;
+}
+/* Block-level widgets in the editor (embeds, code, math, callouts) show a
+   hairline ring when hovered rather than the stock double border */
+@media (hover: hover) {
+  .markdown-source-view.mod-cm6 .cm-embed-block:not(.cm-table-widget, .cm-lang-base):hover {
+    border-radius: var(--embed-radius);
+  }
+  .markdown-source-view.mod-cm6 .embed-action {
+    background-color: var(--bircharoo-button-bg);
+    box-shadow: 0 0 0 1px var(--bircharoo-button-border);
+    border-radius: var(--radius-s);
+    transition: color var(--anim-duration-fast) var(--anim-motion-smooth),
+                background-color var(--anim-duration-fast) var(--anim-motion-smooth);
+  }
+  .markdown-source-view.mod-cm6 .embed-action:hover {
+    color: var(--text-normal);
+    background-color: var(--bircharoo-button-bg-hover);
+  }
+}
+.markdown-source-view.mod-cm6 .embed-actions {
+  transition: opacity var(--anim-duration-fast) var(--anim-motion-smooth);
 }
 
 /* Caret takes the accent; selection is a soft accent tint everywhere */
