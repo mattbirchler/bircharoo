@@ -981,7 +981,9 @@ body {
   --embed-background: var(--background-primary-alt);
   --embed-block-shadow-hover: 0 0 0 1px var(--background-modifier-border-hover);
   --embed-action-color: var(--text-muted);
+  --embed-action-radius: var(--radius-s);
   --embed-actions-background: var(--bircharoo-button-bg);
+  --embed-actions-blur: none;
   --embed-actions-shadow: 0 0 0 1px var(--bircharoo-button-border), var(--shadow-xs);
 }
 .markdown-rendered .internal-embed.markdown-embed,
@@ -1057,6 +1059,17 @@ body {
 }
 .markdown-source-view.mod-cm6 .embed-actions {
   transition: opacity var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+/* Image embeds group their actions in one container. The container is the key
+   cap there, so the buttons inside it drop their own ring and fill. */
+.image-embed .embed-actions .embed-action {
+  background-color: transparent;
+  box-shadow: none;
+}
+@media (hover: hover) {
+  .image-embed .embed-actions .embed-action:hover {
+    background-color: var(--background-modifier-hover);
+  }
 }
 
 /* Caret takes the accent; selection is a soft accent tint everywhere */
