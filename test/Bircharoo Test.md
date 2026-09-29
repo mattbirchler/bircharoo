@@ -59,6 +59,12 @@ export function greet(name = "world") {
 }
 ```
 
+A block with no language, which shows a copy icon where the label would be:
+
+```
+brew install --cask obsidian
+```
+
 ###### Heading six
 
 A table with figures, so numerals and alignment can be checked:

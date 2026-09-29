@@ -549,13 +549,16 @@ body {
   padding: var(--size-4-4);
   line-height: 1.55;
 }
+/* The button keeps one layout whether it is showing or faded out, so it does
+   not change size as it fades */
 .markdown-rendered pre:not(:hover) > button.copy-code-button {
-  display: block;
+  display: flex;
   opacity: 0;
 }
 .markdown-rendered button.copy-code-button {
   margin: var(--size-4-2);
   padding: 2px 8px;
+  min-height: 24px;
   border-radius: 5px;
   font-weight: 500;
   font-size: var(--font-ui-smaller);
@@ -574,9 +577,15 @@ body {
     box-shadow: 0 0 0 1px var(--bircharoo-button-border-hover);
   }
 }
+/* Flex centers the copy icon shown when a block has no language. As inline
+   content the icon sat on the text baseline, above the middle of the cap. */
 .markdown-source-view.mod-cm6 .code-block-flair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   top: var(--size-4-2);
   right: var(--size-4-2);
+  min-height: 24px;
   padding: 2px 8px;
   border-radius: 5px;
   font-weight: 500;
