@@ -131,7 +131,9 @@ visible without size doing the work.
 
 - `test/Bircharoo Test.md` in reading and editing view, light and dark, desktop
   and phone width (`scripts/screenshots.sh` does all of these)
-- A Bases table and card view, a Kanban board, a Projects board
+- A Bases table, card, list, and kanban view, grouped and with a group
+  collapsed (`Tangerine Neue Test/Bircharoo Bases.base` in the dev vault covers
+  all four), a Kanban plugin board, a Projects board
 - PDF export of a long post
 
 - Long-form posts in `birchtree/` (headings, links, quotes, images)

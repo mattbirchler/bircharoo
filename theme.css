@@ -2499,7 +2499,8 @@ body {
 }
 
 /* Bases (core): the table view follows the note tables above, cards are
-   small page cards, and the toolbar's buttons stay quiet until hovered. */
+   small page cards, the kanban layout (1.14) matches the Kanban plugin
+   board below, and the toolbar's buttons stay quiet until hovered. */
 body {
   --bases-table-container-border-width: 1px;
   --bases-table-container-border-radius: var(--radius-m);
@@ -2521,9 +2522,30 @@ body {
   --bases-cards-cover-background: var(--background-primary-alt);
   --bases-group-heading-property-color: var(--text-faint);
   --bases-group-heading-value-weight: 600;
+  --bases-kanban-column-background: var(--background-secondary);
+  --bases-kanban-column-radius: var(--radius-l);
+  --bases-kanban-card-radius: var(--radius-m);
+  --bases-kanban-card-shadow: 0 0 0 1px var(--bircharoo-button-border), var(--shadow-xs);
+  --bases-kanban-card-shadow-hover: 0 0 0 1px var(--bircharoo-button-border-hover), var(--shadow-xs);
+  --bases-kanban-card-shadow-focus: 0 0 0 2px var(--interactive-accent);
+  --bases-kanban-cover-background: var(--background-primary-alt);
   --bases-embed-border-width: 1px;
   --bases-embed-border-color: var(--background-modifier-border);
   --bases-embed-border-radius: var(--embed-radius);
+}
+.bases-kanban-column-count {
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+.bases-kanban-column-create,
+.bases-kanban-column-footer .text-icon-button {
+  border-radius: var(--radius-s);
+  transition: background-color var(--anim-duration-fast) var(--anim-motion-smooth),
+              color var(--anim-duration-fast) var(--anim-motion-smooth),
+              opacity var(--anim-duration-fast) var(--anim-motion-smooth);
+}
+.bases-kanban-card {
+  transition: box-shadow var(--anim-duration-fast) var(--anim-motion-smooth);
 }
 .bases-table-header-name {
   font-size: var(--font-ui-smaller);
